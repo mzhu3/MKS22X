@@ -1,6 +1,6 @@
 import java.util.Arrays;
 public class hwQueens{
-    int[][]board;
+    private int[][]board;
     public hwQueens(){
 	board = new int[8][8];
 	for(int i = 0; i < board.length; i++){
@@ -9,20 +9,21 @@ public class hwQueens{
 	    }
 	}
     }
-    public hwQueens(int size){
-	board = new int[size][size];
+    public hwQueens(int a){
+	board = new int[a][a];
 	for(int i = 0; i < board.length; i++){
-	    for(int j = 0; j < board[j].length; j ++){
+	    for(int j = 0; j < board[i].length; j ++){
 		board[i][j] = 0;
 	    }
 	}
     }
-    public boolean Solve(){
-	int queens = board[0].length;
-	if(queens == 0){
-	    printBoard();
-	    return true;
-	}
+    /*   public boolean Solve(){
+	 int queens = board[0].length;
+	 if(queens == 0){
+	 printBoard();
+	 return true;
+	 }
+	 }*/
     public void addQueen(int x, int y){
 	board[x][y] = 1;
 	int counter = 1;
@@ -67,14 +68,14 @@ public class hwQueens{
     }
     
     public static void main(String[]args){
-	hwQueens hq = new hwQueens();
-		hq.addQueen(5,2);
+	hwQueens hq = new hwQueens(10);
+	hq.addQueen(5,2);
 	System.out.println(hq.printBoard());
 	hq.removeQueen(5,2);
 	System.out.println(hq.printBoard());
-
     }
 }
+    
 	
 	    
 	    
