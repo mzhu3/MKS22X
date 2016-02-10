@@ -1,7 +1,7 @@
 import java.util.Arrays;
-public class hwQueens{
+public class QueenBoard{
     private int[][]board;
-    public hwQueens(){
+    public QueenBoard(){
 	board = new int[8][8];
 	for(int i = 0; i < board.length; i++){
 	    for(int j = 0; j < board[i].length; j ++){
@@ -9,7 +9,7 @@ public class hwQueens{
 	    }
 	}
     }
-    public hwQueens(int a){
+    public QueenBoard(int a){
 	board = new int[a][a];
 	for(int i = 0; i < board.length; i++){
 	    for(int j = 0; j < board[i].length; j ++){
@@ -18,12 +18,17 @@ public class hwQueens{
 	}
     }
     /*   public boolean Solve(){
-	 int queens = board[0].length;
-	 if(queens == 0){
-	 printBoard();
-	 return true;
-	 }
+
 	 }*/
+    public boolean SolveH(int a){
+        int queens = 0;
+	if(queens = board.length - 1){
+	    printBoard();
+	    return true;
+	}
+	for(int i = 0; i < board.length; i ++){
+	    
+	
     public void addQueen(int x, int y){
 	board[x][y] = 1;
 	int counter = 1;
@@ -60,7 +65,7 @@ public class hwQueens{
 	String result = "";
 	for(int i = 0; i < board.length; i ++){
 	    for(int j = 0; j <board[i].length; j++){
-		result += Integer.toString(board[i][j])+ " ";
+		result += Integer.toString(board[i][j])+ "\t";
 	    }
 	    result += "\n";
 	}
@@ -68,7 +73,7 @@ public class hwQueens{
     }
     
     public static void main(String[]args){
-	hwQueens hq = new hwQueens(10);
+	QueenBoard hq = new QueenBoard(10);
 	hq.addQueen(5,2);
 	System.out.println(hq.printBoard());
 	hq.removeQueen(5,2);
