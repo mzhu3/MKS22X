@@ -1,4 +1,3 @@
-import java.util.Arrays;
 public class QueenBoard{
     private int[][]board;
     public QueenBoard(){
@@ -17,50 +16,90 @@ public class QueenBoard{
 	    }
 	}
     }
-    /*   public boolean Solve(){
+    public boolean Solve(){
+	if( solveH(0)){
+	    System.out.println( Cleanup());
+	    return true;
+	}
+	System.out.println(Cleanup());
+	return false;
+    }
 
-	 }*/
-    public boolean SolveH(int a){
-        int queens = 0;
-	if(queens = board.length - 1){
+    private boolean solveH(int col){
+	if(col>=board.length){
 	    printBoard();
 	    return true;
 	}
-	for(int i = 0; i < board.length; i ++){
+	int a = 0;
+	while(a < board.length){
+	    if (addQueen(a,col)){
+		if (solveH(col+1)){
+		    printBoard();
+		    return true;
+		}else{
+		    removeQueen(a,col);
+		}
+	    }
+	    a ++;
+	}
+	return false;
+    }
 	    
 	
-    public void addQueen(int x, int y){
+    public boolean addQueen(int x, int y){
+	if(board[x][y] !=0){
+	    return false;
+	}
 	board[x][y] = 1;
 	int counter = 1;
 	int counter2 = 1;
-	for(int a = y + 1; a < board.length;a++){
+	for(int a = y + 1; a < board[x].length;a++){
 	    board[x][a]= board[x][a] - 1;
 	}
-	for(int b = x - 1; b >= 0; b --){
-	    board[b][y+counter]= board[b][y+counter]-1;
+        while(y+counter < board.length){
+	    if(x-counter >=0){
+		board[x-counter][y+counter]= board[x-counter][y+counter]-1;
+	    }
 	    counter ++;
+
 	}
-	for(int c = x;c <board.length - 1;c++){
-	    board[x+counter2][y+counter2]=board[x+counter2][y+counter2] - 1;
-	    counter2 ++;
+	while(y+counter2 <board.length){
+	    if(x+counter2 < board.length){
+		board[x+counter2][y+counter2]=board[x+counter2][y+counter2] - 1;
+	    }
+	    counter2++;
 	}
+	return true;
     }
-    public void removeQueen(int x, int y){
+    public boolean removeQueen(int x, int y){
+	if(board[x][y]!=1){
+	    return false;
+	}
 	board[x][y] = 0;
 	int counter = 1;
-	int counter2 = 1;
-	for(int a = y + 1; a < board.length; a ++){
+	int counter2 =1;
+	for(int a = y + 1; a < board[x].length; a ++){
 	    board[x][a]=board[x][a] + 1;
 	}
-	for(int b = x - 1 ; b >=0;b --){
-	    board[b][y + counter] = board[b][y+counter]+1;
+	while(y+counter < board.length){
+	    if(x-counter >=0){
+		board[x-counter][y+counter]= board[x-counter][y+counter]-1;
+	    }
 	    counter ++;
+
 	}
-	for(int c = x; c <board.length - 1; c ++){
-	    board[x+counter2][y+counter2]= board[x+counter2][y+counter2] + 1;
-	    counter2 ++;
+
+    
+	while(y+counter2 <board.length){
+	    if(x + counter2 < board.length)
+		board[x+counter2][y+counter2]= board[x+counter2][y+counter2] + 1;
+	    counter2++;
 	}
+
+    
+	return true;
     }
+    
     public String printBoard(){
 	String result = "";
 	for(int i = 0; i < board.length; i ++){
@@ -71,15 +110,27 @@ public class QueenBoard{
 	}
 	return result;
     }
-    
+    public String Cleanup(){
+	String result ="";
+	for(int i =0;i<board.length; i++){
+	    for(int j = 0; j<board[i].length; j++){
+		if(board[i][j] == 1){
+		    result+="Q" +"\t";
+		}
+		else{
+		    result+="_"+"\t";
+		}
+	    }
+	    result+="\n";
+	}
+	return result;
+    }
     public static void main(String[]args){
-	QueenBoard hq = new QueenBoard(10);
-	hq.addQueen(5,2);
-	System.out.println(hq.printBoard());
-	hq.removeQueen(5,2);
-	System.out.println(hq.printBoard());
+	QueenBoard hq = new QueenBoard(5);
+	System.out.println(hq.Solve());
     }
 }
+
     
 	
 	    
