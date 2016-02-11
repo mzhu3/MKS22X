@@ -16,12 +16,12 @@ public class QueenBoard{
 	    }
 	}
     }
-    public boolean Solve(){
+    public boolean solve(){
 	if( solveH(0)){
-	    System.out.println( Cleanup());
+	    System.out.println( printSolution());
 	    return true;
 	}
-	System.out.println(Cleanup());
+	System.out.println(printSolution());
 	return false;
     }
 
@@ -110,7 +110,7 @@ public class QueenBoard{
 	}
 	return result;
     }
-    public String Cleanup(){
+    public String printSolution(){
 	String result ="";
 	for(int i =0;i<board.length; i++){
 	    for(int j = 0; j<board[i].length; j++){
@@ -127,7 +127,7 @@ public class QueenBoard{
     }
     public static void main(String[]args){
 	QueenBoard hq = new QueenBoard(5);
-	System.out.println(hq.Solve());
+	System.out.println(hq.solve());
     }
 }
 
