@@ -26,12 +26,12 @@ public class KnightBoard{
 	board = new int[a+4][b+4];
 	for(int i = 0; i<board.length;i++){
 	    int row =i ;
-	    for(int j = 0; j <board[i].length;j++){
+	    for(int j = 0; j <board[0].length;j++){
 		int col =j;
 		if(row < 2||
 		   col < 2||
-		   row >board.length - 3||
-		   col > board.length - 3){
+		   row >=board.length - 2||
+		   col >= board[0].length - 2){
 		    board[i][j]= -1;
 		}
 		else{
@@ -60,7 +60,7 @@ public class KnightBoard{
 	}
     }
     public boolean solve(){
-        for(int i = 2; i < board[0].length-2; i ++){
+        for(int i = 2; i < board.length-2; i ++){
 	    for(int j = 2; j < board[0].length-2; j++){
 		if(solveH(i,j)){
 		    return true; 
@@ -141,8 +141,12 @@ public class KnightBoard{
 
     public static void main(String args[]){
 	KnightBoard kq = new KnightBoard(6);
-        kq.solve();
-	kq.printSolution();
+	//  kq.solve();
+	//	kq.printSolution();
+	KnightBoard kk = new KnightBoard(3,7);
+	System.out.println(kk.printBoard());
+	kk.solve();
+	kk.printSolution();
     }
 }
 	    
