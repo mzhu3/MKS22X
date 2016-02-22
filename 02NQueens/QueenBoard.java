@@ -110,7 +110,7 @@ public class QueenBoard{
 	}
 	return result;
     }
-    public String printSolution(){
+    public void printSolution(){
 	String result ="";
 	for(int i =0;i<board.length; i++){
 	    for(int j = 0; j<board[i].length; j++){
@@ -123,7 +123,7 @@ public class QueenBoard{
 	    }
 	    result+="\n";
 	}
-	return result;
+	System.out.println(result);
     }
     public static void main(String[]args){
 	QueenBoard hq = new QueenBoard(5);

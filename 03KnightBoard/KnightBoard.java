@@ -126,9 +126,6 @@ public class KnightBoard{
 
     public void printSolution(){
 	String ans = "";
-	System.out.println(solve());
-	if(solve()){
-	    
 	    for(int i =2;i<board.length-2;i++){
 		for(int j =2;j<board[0].length-2;j++){
 		    if(board[i][j]==0){
@@ -141,14 +138,10 @@ public class KnightBoard{
 	    }
 	    System.out.println(ans);
 	}
-	else{
-	    System.out.println("no SOlution");
-	}
-    }
 
     public static void main(String args[]){
 	KnightBoard kq = new KnightBoard(6);
-	System.out.println(kq.solve());
+        kq.solve();
 	kq.printSolution();
     }
 }
