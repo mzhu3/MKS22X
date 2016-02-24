@@ -143,7 +143,7 @@ public class KnightBoard{
 	KnightBoard kq = new KnightBoard(6);
 	//  kq.solve();
 	//	kq.printSolution();
-	KnightBoard kk = new KnightBoard(3,7);
+	KnightBoard kk = new KnightBoard(5,6);
 	System.out.println(kk.printBoard());
 	kk.solve();
 	kk.printSolution();

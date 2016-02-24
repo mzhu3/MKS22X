@@ -17,12 +17,7 @@ public class QueenBoard{
 	}
     }
     public boolean solve(){
-	if( solveH(0)){
-	    System.out.println( printSolution());
-	    return true;
-	}
-	System.out.println(printSolution());
-	return false;
+	return solveH(0);
     }
 
     private boolean solveH(int col){
@@ -34,7 +29,6 @@ public class QueenBoard{
 	while(a < board.length){
 	    if (addQueen(a,col)){
 		if (solveH(col+1)){
-		    printBoard();
 		    return true;
 		}else{
 		    removeQueen(a,col);
@@ -126,8 +120,9 @@ public class QueenBoard{
 	System.out.println(result);
     }
     public static void main(String[]args){
-	QueenBoard hq = new QueenBoard(5);
-	System.out.println(hq.solve());
+	QueenBoard hq = new QueenBoard(8);
+	System.out.println( hq.solve());
+	hq.printSolution();
     }
 }
 
