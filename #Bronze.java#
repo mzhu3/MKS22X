@@ -8,21 +8,24 @@ public class Bronze {
     int N;
 	
     public Bronze( Scanner in) {
-	area = new int[Integer.parseInt(in.next())][Integer.parseInt(in.next())];
-	E = Integer.parseInt(in.next());
-	N = Integer.parseInt(in.next());
+	Scanner firstLine = new Scanner(in.nextLine());
+	area = new int[Integer.parseInt(firstLine.next())][Integer.parseInt(firstLine.next())];
+	E = Integer.parseInt(firstLine.next());
+	N = Integer.parseInt(firstLine.next());
 	for (int i = 0; i < area.length; i++) {
+	    Scanner rows = new Scanner(in.nextLine());
 	    for (int j = 0;j < area[i].length; j++) {
-		area[i][j] = Integer.parseInt(in.next());
+		area[i][j] = Integer.parseInt(rows.next());
 	    }
 	}
-	whereTostomp = new int[N][3];
+        whereTostomp = new int[N][3];
 	for (int i = 0; i < N; i++) {
-	    for (int j = 0; j < 2; j++) {
-		whereTostomp[i][j] = Integer.parseInt(in.next());
+	    Scanner nextlines = new Scanner(in.nextLine());
+	    whereTostomp[i][0] =Integer.parseInt( nextlines.next());
+	    whereTostomp[i][1] =Integer.parseInt( nextlines.next());
+	    whereTostomp[i][2] =Integer.parseInt( nextlines.next());
 	    }
-	    whereTostomp[i][2] = Integer.parseInt(in.next());
-	}
+	
     }
 	
     public void printArea() {
@@ -33,14 +36,7 @@ public class Bronze {
 	    System.out.println();
 	}
     }
-    public void printStomps(){
-	for(int i = 0; i <whereTostomp.length; i++){
-	    for(int j = 0; j < 3; j ++){
-		System.out.print(whereTostomp[i][j] +"\t");
-	    }
-	    System.out.println();
-	}
-    }
+	
     public int findMaxElevation(int row, int col) {
 	int max = 0;
 	for (int i = row; i < row+3; i++) {
@@ -52,6 +48,8 @@ public class Bronze {
 	}
 	return max;
     }
+       
+
     public void stomp(int row, int col, int depth) {
 	int max = findMaxElevation(row,col);
 	for (int i = row; i < row+3; i++) {
@@ -65,8 +63,8 @@ public class Bronze {
 
 	
     public int solve() {
-	for(int i =0; i <N; i++){
-	    stomp(whereTostomp[i][0]-1,whereTostomp[i][1]-1, whereTostomp[i][2]);
+        for(int i =0; i <N; i++){
+	    stomp(whereTostomp[i][0],whereTostomp[i][1], whereTostomp[i][2]);
 	}
 	int totalDepth = 0;
 	for (int i = 0; i < area.length; i++) {
@@ -83,11 +81,8 @@ public class Bronze {
 	try {
 	    File f = new File("makelake.in");
 	    Scanner in = new Scanner(f);
-	    // System.out.println(Integer.parseInt(in.next())-1);
-	     Bronze cows = new Bronze(in);
-	     // cows.printArea();
-	     //cows.printStomps();
-	      System.out.println(cows.solve()+"6,Zhu,Matthew");
+	    Bronze a = new Bronze(in);
+	     System.out.println(a.solve()+"6,Zhu,Matthew");
 	}
 	catch (FileNotFoundException e) {
 	    System.out.println("No such file found");
