@@ -54,7 +54,7 @@ public class Maze{
     /*Main Solve Function
 
       Things to note:
-       When no S is contained in maze, print an error and return false.
+      When no S is contained in maze, print an error and return false.
     */
     public boolean solve(){
         if(startx < 0){
@@ -73,11 +73,11 @@ public class Maze{
       The S is replaced with '@' but the 'E' is not.
 
       Postcondition:
-        Returns true when the maze is solved,
-        Returns false when the maze has no solution.
+      Returns true when the maze is solved,
+      Returns false when the maze has no solution.
 
-        All visited spots that were not part of the solution are changed to '.'
-        All visited spots that are part of the solution are changed to '@'
+      All visited spots that were not part of the solution are changed to '.'
+      All visited spots that are part of the solution are changed to '@'
 
     */
     private boolean solve(int x, int y){
@@ -85,32 +85,58 @@ public class Maze{
             System.out.println(this);
             wait(20);
         }
-	if (maze[x][y]=='E'){
+	if(maze[x][y] == 'E'){
 	    return true;
 	}
+	if(maze[x][y] == ' '){
+	    maze[x][y] = '@';
+	    if ( x == 0){
+		if(solve(x, y + 1)||
+		   solve(x , y - 1)||
+		   solve(x + 1, y)){
+		    return true;
+		}
+	    }
+	    if(y == 0){
+		if(solve(x, y + 1)||
+		   solve(x+1, y)||
+		   solve(x-1, y)){
+		    return true;
+		}
+	    }
+	    if(x == maze.length){
+		if(solve(x, y + 1)||
+		   solve(x, y - 1)||
+		   solve(x-1,y)){
+		    return true;
+		}
+	    }
 	
-	if (placeMarker(x,y)){
+	    if(y == maze[0].length){
+		if(solve(x, y - 1)||
+		   solve(x+1,y)||
+		   solve(x-1,y)){
+		    return true;
+		}
+	    }
 	    if(solve(x+1,y)||
-	       solve(x-1,y)||
 	       solve(x,y+1)||
+	       solve(x-1,y)||
 	       solve(x,y-1)){
 		return true;
-	    }else{
-		maze[x][y]='.';
+	    }
+	
+	    else{
+		maze[x][y] = '.';
 		return false;
 	    }
 	}
-	return false;
-    }
 
-    public boolean placeMarker(int x, int y){
-	if (maze[x][y]==' '){
-	    maze[x][y]='@';
-	    return true;
-	}else{
-	    return false;
-	}
+	//COMPLETE SOLVE
+
+	return false; //so it compiles
     }
+    
 
 
 
