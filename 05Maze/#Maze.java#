@@ -85,32 +85,27 @@ public class Maze{
             System.out.println(this);
             wait(20);
         }
-	if (maze[x][y]=='E'){
+	if(maze[x][y] == 'E'){
 	    return true;
 	}
-	
-	if (placeMarker(x,y)){
+	if(maze[x][y] == ' '){
+	    maze[x][y] = '@';
 	    if(solve(x+1,y)||
-	       solve(x-1,y)||
 	       solve(x,y+1)||
-	       solve(x,y-1)){
+	       solve(x-1,y)||
+	       solve(x,y-1))
 		return true;
-	    }else{
-		maze[x][y]='.';
-		return false;
-	    }
 	}
-	return false;
-    }
-
-    public boolean placeMarker(int x, int y){
-	if (maze[x][y]==' '){
-	    maze[x][y]='@';
-	    return true;
-	}else{
+	else{
+	    maze[x][y] = '.';
 	    return false;
 	}
+
+        //COMPLETE SOLVE
+
+        return false; //so it compiles
     }
+
 
 
 
