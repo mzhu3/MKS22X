@@ -19,8 +19,8 @@ public class Maze{
 	    int mazex = 0;
 	    int mazey = 0;
 	    while(inr.hasNextLine()){
-		row ++;
 		String firstLine = inr.nextLine();
+		row ++;
 		col = firstLine.length();
 		SingleMap += firstLine;
 	    }
@@ -29,12 +29,13 @@ public class Maze{
 	    mazey = col;
 	    int x = 0;
 	    int y = 0;
-	    for(int i = 0; i < mazex * mazey; i ++){
+	    for(int i = 0; i < SingleMap.length(); i ++){
 		if(i % col == 0 && i != 0){
 		    x ++;
 		    y = 0;
 		}
 		maze[x][y] = SingleMap.charAt(i);
+		y ++;
 	    }
 	    for(int a = 0;a <maze.length;a ++){
 		for(int b = 0; b <maze[a].length; b ++){
@@ -89,39 +90,10 @@ public class Maze{
 	    return true;
 	}
 	if(maze[x][y] == ' '){
-	    maze[x][y] = '@';
-	    if ( x == 0){
-		if(solve(x, y + 1)||
-		   solve(x , y - 1)||
-		   solve(x + 1, y)){
-		    return true;
-		}
-	    }
-	    if(y == 0){
-		if(solve(x, y + 1)||
-		   solve(x+1, y)||
-		   solve(x-1, y)){
-		    return true;
-		}
-	    }
-	    if(x == maze.length){
-		if(solve(x, y + 1)||
-		   solve(x, y - 1)||
-		   solve(x-1,y)){
-		    return true;
-		}
-	    }
-	
-	    if(y == maze[0].length){
-		if(solve(x, y - 1)||
-		   solve(x+1,y)||
-		   solve(x-1,y)){
-		    return true;
-		}
-	    }
+	    maze[x][y]='@';
 	    if(solve(x+1,y)||
-	       solve(x,y+1)||
 	       solve(x-1,y)||
+	       solve(x,y+1)||
 	       solve(x,y-1)){
 		return true;
 	    }
@@ -137,8 +109,6 @@ public class Maze{
 	return false; //so it compiles
     }
     
-
-
 
     //FREE STUFF!!! *you should be aware of this*
 
