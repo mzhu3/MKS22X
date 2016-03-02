@@ -52,20 +52,20 @@ public class Silver{
 		    if(board[j][k] != -1){
 			int PMoves = 0;
 			if(j-1 >=0 && board[j-1][k]!=-1){
-
+			    // board[j-1][k]+=board[j][k];
 			    PMoves += board[j-1][k];
 			}
 			if(j+1 < board.length && board[j+1][k]!=-1){
-
+			    //  board[j+1][k] +=board[j][k];
 			    PMoves += board[j+1][k];
 			}
 			if(k-1 >= 0 && board[j][k-1]!=-1){
-			   
+			    // board[j][k-1]+=board[j][k];
 			    PMoves += board[j][k-1];
 			}
 			if(k+1 < board[j].length && board[j][k+1]!= -1){
-			    
-			    PMoves += board[j][k+1];
+			    //  board[j][k+1] += board[j][k];
+			      PMoves += board[j][k+1];
 			}
 			boardC[j][k] = PMoves;
 		    }
@@ -74,8 +74,10 @@ public class Silver{
 		    }
 		}
 	    }
+	    
 	    convert();
 	}
+	   
 	return boardC[endx][endy];
     }
 
@@ -95,4 +97,5 @@ public class Silver{
 	
 			
 			    
-//Help from Alvin Zhu with Solve method ** //
+//Help from Alvin Zhu with Solve method *
+//Help from Kevin Zhange with the Solve method as well **
