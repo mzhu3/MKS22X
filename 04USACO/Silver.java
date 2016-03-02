@@ -98,4 +98,4 @@ public class Silver{
 			
 			    
 //Help from Alvin Zhu with Solve method *
-//Help from Kevin Zhange with the Solve method as well **
+//Help from Kevin Zhange with the Solve method as well for creating a 2nd board and using a variable to keep track of the number of moves **
