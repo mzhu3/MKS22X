@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-public class Silver{
-    public static void main(String[]args){
-	File f = new File("");
-	try{
-	Scanner in = new Scanner(f);
-	}
-	catch(
-=======
 import java.util.*;
 import java.io.*;
 
@@ -108,4 +99,3 @@ public class Silver{
 			    
 //Help from Alvin Zhu with Solve method *
 //Help from Kevin Zhange with the Solve method as well for creating a 2nd board and using a variable to keep track of the number of moves **
->>>>>>> 341628da8ece693687adb1998287d3c24446941e
