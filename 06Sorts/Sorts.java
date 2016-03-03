@@ -88,6 +88,22 @@ public class Sorts{
 		(int)(Math.random()*Integer.MAX_VALUE);
 	}
     }
+    public static void mergeSort(int[] ary){
+    }
+    public void merge(int[]ary,int startA,int endA,int startB,int endB){
+	for(int i = startA; i < endA-1; i ++){
+	}
+    }
+    public int mergeH(int[]ary, int startA, int endA){
+	if(endA == startA){
+	    startA ++;
+	    return ary[0];
+	}
+	if(endA > 1){
+	    mergeH(ary,startA,endA/2); 
+	}
+	
+	    
  	
 }
 	    
