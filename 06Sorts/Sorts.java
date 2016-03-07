@@ -88,28 +88,83 @@ public class Sorts{
 		(int)(Math.random()*Integer.MAX_VALUE);
 	}
     }
-    public static void mergeSort(int[] ary){
+    public static void mergeSort(int[]data) {
+	int [] newAry = mergeHelper(data);
+	for (int i = 0; i < data.length; i++) {
+	    data[i] = newer[i];
+	}
+
     }
-    public void merge(int[]ary,int startA,int endA,int startB,int endB){
-	for(int i = startA; i < endA-1; i ++){
+
+
+    public static int[] mergeHelper(int[]data) {
+	if (data.length == 1) {
+	    return data;
 	}
-    }
-    public int mergeH(int[]ary, int startA, int endA){
-	if(endA == startA){
-	    startA ++;
-	    return ary[0];
+	int start1 = 0;
+	int end1 = (data.length/2);
+	int start2 = end1;
+	int end2 = data.length;
+	int counter = 0;
+	int[]m1 = new int[end1];
+	for(int i = 0; i < m1.length; i ++){
+	    m1[i] = data[1];
 	}
-	if(endA > 1){
-	    mergeH(ary,startA,endA/2); 
+	int[]m2 = new int[data.length - start2];
+	for(int a = start2;a < data.length; a ++){
+	    m2[counter]=data[a];
+	    counter++;
 	}
+        int [] newAry= merge(mergeHelper(m1),mergeHelper(m2));;
 	
+	return newAry;
+	
+    }
+
+    public static int[] merge(int[]data1,int[]data2) {
+	int [] newAry = new int[2 * data1.length];
+	int start1 = 0;
+	int end1 = data1.length;
+	int end2 = data2.length;
+	int start2 = 0;
+	int maxL = Math.max(data1.length, data2.length);
+	int minL = Math.min(data1.length. data2.length);
+	int left = 0;
+	for (int i = 0; i < newAry.length && start1 < minL && start2 < minL; i++) {
+	    if (data1[start1] > data2[start2]) {
+		newAry[i] = data2[index2];
+		index2++;
+		left++;
+	    }
+	    else {
+		newAry[i] = data1[index1];
+		index1++;
+		left++;
+	    }
+	}
+	int [] last = data1;
+	int lastI = index1;
+	int start = maxL;
+	if (data2.length == maxL) {
+	    last = data2;
+	    lastI = index2;
+	}
+        else{
+	    last = data1;
+	    lastI = index1;
+	}
+	for (int j = lastI; j < last.length; j++) {
+	    newAry[left] = unfinished[j];
+	    left++;
+	}
+	return newAry;
+    }
 	    
  	
 }
 	    
-//help from Billy with optimizing my sort 		    
-	    
-
+//help from Billy with optimizing my sort
+//Help from Anthony with Merge; the part with merging two arys of varying lengths!
 	
 
 
