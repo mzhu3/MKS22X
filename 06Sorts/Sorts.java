@@ -88,7 +88,7 @@ public class Sorts{
 		(int)(Math.random()*Integer.MAX_VALUE);
 	}
     }
-    public static void mergeSort(int[]data) {
+    public static void mergesort(int[]data) {
 	int [] newAry = mergeHelper(data);
 	for (int i = 0; i < data.length; i++) {
 	    data[i] = newAry[i];
@@ -142,6 +142,7 @@ public class Sorts{
 		left++;
 	    }
 	}
+<<<<<<< HEAD
 	int [] last = data1;
 	int lastI = start1;
 	int start = maxL;
@@ -156,11 +157,25 @@ public class Sorts{
 	for (int j = lastI; j < last.length; j++) {
 	    newAry[left] = last[j];
 	    left++;
+=======
+	int lastI;
+	if(start1 < data1.length){
+	    lastI = start1;
+	    for (int j = lastI; j < data1.length; j++) {
+		newAry[left] = data1[j];
+		left++;
+	    }
+	}
+	if(start2 <data2.length){
+	    lastI = start2;
+	    for(int k = lastI;k <data2.length; k++){
+		newAry[left] = data2[k];
+		left++;
+	    }
+>>>>>>> 00a6804f4f0fab95ee61e541ad7e58e831d8c023
 	}
 	return newAry;
     }
-	    
- 	
 }
 	    
 //help from Billy with optimizing my sort
