@@ -150,14 +150,12 @@ public class Sorts{
 		left++;
 	    }
 	}
-	else{
+	if(start2 <data2.length){
 	    lastI = start2;
 	    for(int k = lastI;k <data2.length; k++){
 		newAry[left] = data2[k];
 		left++;
 	    }
-	    
- 	
 	}
 	return newAry;
     }
