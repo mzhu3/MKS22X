@@ -91,7 +91,7 @@ public class Sorts{
     public static void mergeSort(int[]data) {
 	int [] newAry = mergeHelper(data);
 	for (int i = 0; i < data.length; i++) {
-	    data[i] = newer[i];
+	    data[i] = newAry[i];
 	}
 
     }
@@ -128,39 +128,39 @@ public class Sorts{
 	int end2 = data2.length;
 	int start2 = 0;
 	int maxL = Math.max(data1.length, data2.length);
-	int minL = Math.min(data1.length. data2.length);
+	int minL = Math.min(data1.length, data2.length);
 	int left = 0;
 	for (int i = 0; i < newAry.length && start1 < minL && start2 < minL; i++) {
 	    if (data1[start1] > data2[start2]) {
-		newAry[i] = data2[index2];
-		index2++;
+		newAry[i] = data2[start2];
+		start2++;
 		left++;
 	    }
 	    else {
-		newAry[i] = data1[index1];
-		index1++;
+		newAry[i] = data1[start1];
+		start1++;
 		left++;
 	    }
 	}
-	int [] last = data1;
-	int lastI = index1;
-	int start = maxL;
-	if (data2.length == maxL) {
-	    last = data2;
-	    lastI = index2;
+	int lastI;
+	if(start1 < data1.length){
+	    lastI = start1;
+	    for (int j = lastI; j < data1.length; j++) {
+		newAry[left] = data1[j];
+		left++;
+	    }
 	}
-        else{
-	    last = data1;
-	    lastI = index1;
-	}
-	for (int j = lastI; j < last.length; j++) {
-	    newAry[left] = unfinished[j];
-	    left++;
+	else{
+	    lastI = start2;
+	    for(int k = lastI;k <data2.length; k++){
+		newAry[left] = data2[k];
+		left++;
+	    }
+	    
+ 	
 	}
 	return newAry;
     }
-	    
- 	
 }
 	    
 //help from Billy with optimizing my sort
