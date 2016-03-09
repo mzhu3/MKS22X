@@ -8,6 +8,15 @@ public class Quick{
 	    data[b] = save;
 	}
     }
+    public static int getArrayIndex(int[] data,int value) {
+        int k=0;
+        for(int i=0;i<data.length;i++){
+            if(data[i]==value){
+                k=i;
+            }
+        }
+    return k;
+}
     private static int partition(int[]data, int left, int right){
 	Random rand = new Random();
 	int index = rand.nextInt((right - left) + 1)+left;
@@ -15,6 +24,7 @@ public class Quick{
 	    return left;
 	}
 	int save = data[index];
+	int saveIndex =right;
 	swap(data,index,right);
 	right --;
 	while(left != right){
@@ -27,31 +37,36 @@ public class Quick{
 	    }
 	}
 	if(data[left] < save){
-	    swap(data,right+1,java.util.Arrays.asList(data).indexOf(save));
+	    swap(data,right+1,saveIndex);
 	}
 	else{
-	    swap(data,left,java.util.Arrays.asList(data).indexOf(save));
+	    swap(data,left,saveIndex);
 	}
-	return java.util.Arrays.asList(data).indexOf(save);
+	return getArrayIndex(data,save);
     }
     public static int quickselect(int[]data, int k){
-	int index = partition(data,0,data.length-1);
-	if(index ==k){
+	int upmost = data.length -1;
+	return quickselect(data,k,0,upmost);
+    }
+    private static int quickselect(int[]data, int k, int left, int right){
+	int index = partition(data,left,right);
+	if(left ==right){
 	    return data[index];
 	}
-        while(index !=k){
-	    if(index > k){
-		index = partition(data,0,index-1);
-	    }
-	    else{
-		index = partition(data,k,data.length-1);
-	    }
+        if(index < k){
+	    return quickselect(data,k,index+1 ,right);
 	}
-	return data[index];
+	else{
+	    return quickselect(data,k,left,index-1);
+	}
+
     }
+	
     public static void main(String[]args){
 	int[] ary = {0,1,2,3,4};
-	System.out.println(quickselect(ary,2));
+	int[]ary2 = {-3,13,4,12,2};
+	System.out.println(quickselect(ary2,2));
+	System.out.println(quickselect(ary2,4));
     }
 	
 }
