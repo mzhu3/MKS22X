@@ -174,7 +174,9 @@ public class Sorts{
 	//	printArray(newAry);
 	return newAry;
     }
-
+    public static String name(){
+	return "6,Zhu,Matthew";
+    }
     public static void main(String args[]){
 	int[] a1 = new int[3];
 
