@@ -203,6 +203,7 @@ public class Sorts{
 	    
 //help from Billy with optimizing my sort
 //Help from Anthony with Merge; the part with merging two arys of varying lengths!
+//Help from Billy with Merge, figuring out what my merge does not sort
 	
 
 
