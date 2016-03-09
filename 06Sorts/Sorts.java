@@ -85,98 +85,119 @@ public class Sorts{
     public static void fillRandom(int[] ary){
 	for(int i = 0; i < ary.length; i++){
 	    ary[i] = (int)(Math.pow(-1,(int)(Math.random())))*
-		(int)(Math.random()*Integer.MAX_VALUE);
+		(int)(Math.random()*10);
 	}
     }
-    public static void mergesort(int[]data) {
-	int [] newAry = mergeHelper(data);
-	for (int i = 0; i < data.length; i++) {
-	    data[i] = newAry[i];
-	}
-
-    }
-
-
-    public static int[] mergeHelper(int[]data) {
-	if (data.length == 1) {
+    public static int[] mergeSort(int[]data) {
+	if(data.length ==1){
 	    return data;
 	}
-	int start1 = 0;
-	int end1 = (data.length/2);
-	int start2 = end1;
-	int end2 = data.length;
-	int counter = 0;
-	int[]m1 = new int[end1];
-	for(int i = 0; i < m1.length; i ++){
-	    m1[i] = data[1];
+	else if(data.length %2 ==0){
+	    int[]data1 = new int[data.length/2];
+	    for(int i = 0; i <data.length/2; i ++){
+		data1[i] = data[i];
+	    }
+	    int[]data2 = new int[data.length/2 ];
+	    for(int a = 0;a < data.length/2; a++){
+		data2[a] = data[a+(data.length/2)];
+	    }
+	    return merge(mergeSort(data1),mergeSort(data2));
 	}
-	int[]m2 = new int[data.length - start2];
-	for(int a = start2;a < data.length; a ++){
-	    m2[counter]=data[a];
-	    counter++;
+	else{
+	    int counter = 0;
+	    int[]data1 = new int[data.length/2];
+	    for(int i = 0; i <data.length/2; i ++){
+		data1[i] = data[i];
+	    }
+	    int[]data2 = new int[(data.length/2) +1];
+	    for(int a = (data.length/2);a < data.length; a++){
+		data2[counter] = data[a];
+		counter++;
+	    }
+	    return merge(mergeSort(data1),mergeSort(data2));
 	}
-        int [] newAry= merge(mergeHelper(m1),mergeHelper(m2));;
-	
-	return newAry;
-	
     }
 
-    public static int[] merge(int[]data1,int[]data2) {
-	int [] newAry = new int[2 * data1.length];
+
+
+    public static void mergesort(int[]data){
+	int[]tempAry = new int[data.length];
+	tempAry = mergeSort(data);
+        for(int i = 0;i< data.length; i++){
+	    data[i]= tempAry[i];
+	}
+	
+	
+	
+	
+    }
+	    
+  
+    public static int[] merge(int[]data,int[]data2) {
 	int start1 = 0;
-	int end1 = data1.length;
-	int end2 = data2.length;
 	int start2 = 0;
-	int maxL = Math.max(data1.length, data2.length);
-	int minL = Math.min(data1.length, data2.length);
 	int left = 0;
-	for (int i = 0; i < newAry.length && start1 <minL && start2 <minL; i++) {
-	    if (data1[start1] > data2[start2]) {
-		newAry[i] = data2[start2];
-		start2++;
-		left++;
-	    }
-	    else {
-		newAry[i] = data1[start1];
+	int[]newAry = new int[data.length+data2.length];
+	while(start1 <data.length  && start2 < data2.length){
+	    if(data[start1] < data2[start2]){
+		newAry[left] = data[start1];
 		start1++;
 		left++;
+		//	printArray(newAry);
+
 	    }
-	}
-<<<<<<< HEAD
-	int [] last = data1;
-	int lastI = start1;
-	int start = maxL;
-	if (data2.length == maxL) {
-	    last = data2;
-	    lastI = start2;
-	}
-        else{
-	    last = data1;
-	    lastI = start1;
-	}
-	for (int j = lastI; j < last.length; j++) {
-	    newAry[left] = last[j];
-	    left++;
-=======
-	int lastI;
-	if(start1 < data1.length){
-	    lastI = start1;
-	    for (int j = lastI; j < data1.length; j++) {
-		newAry[left] = data1[j];
+	    else{
+		newAry[left] = data2[start2];
+		start2++;
 		left++;
+		//	printArray(newAry);
 	    }
+
+	}
+	if(start1 <data.length ){
+	    for(int i = start1; i <data.length;i++){
+		newAry[left] = data[start1];
+		left++;
+		start1++;
+	    }
+	    //   printArray(newAry);
 	}
 	if(start2 <data2.length){
-	    lastI = start2;
-	    for(int k = lastI;k <data2.length; k++){
-		newAry[left] = data2[k];
+	    for(int j = start2; j < data2.length; j++){
+		newAry[left] = data2[start2];
 		left++;
+		start2++;
 	    }
->>>>>>> 00a6804f4f0fab95ee61e541ad7e58e831d8c023
+	    //  printArray(newAry);
 	}
+	//	printArray(data);
+	//	printArray(newAry);
 	return newAry;
     }
+
+    public static void main(String args[]){
+	int[] a1 = new int[3];
+
+	int[] a2 = new int[2];
+	int[] a3 = new int[4];
+	int[] a4 = new int[5];
+	fillRandom(a1);
+	mergesort(a1);
+		printArray(a1);
+	fillRandom(a2);
+	mergesort(a2);
+		printArray(a2);
+	fillRandom(a3);
+	mergesort(a3);
+		printArray(a3);
+	fillRandom(a4);
+	mergesort(a4);
+		printArray(a4);
+    }
+	    
+
 }
+
 	    
 //help from Billy with optimizing my sort
 //Help from Anthony with Merge; the part with merging two arys of varying lengths!

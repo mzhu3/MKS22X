@@ -34,5 +34,25 @@ public class Quick{
 	}
 	return java.util.Arrays.asList(data).indexOf(save);
     }
+    public static int quickselect(int[]data, int k){
+	int index = partition(data,0,data.length-1);
+	if(index ==k){
+	    return data[index];
+	}
+        while(index !=k){
+	    if(index > k){
+		index = partition(data,0,index-1);
+	    }
+	    else{
+		index = partition(data,k,data.length-1);
+	    }
+	}
+	return data[index];
+    }
+    public static void main(String[]args){
+	int[] ary = {0,1,2,3,4};
+	System.out.println(quickselect(ary,2));
+    }
+	
 }
 	
