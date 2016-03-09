@@ -61,6 +61,9 @@ public class Quick{
 	}
 
     }
+    public static String name(){
+	return "6,Zhu,Matthew";
+    }
 	
     public static void main(String[]args){
 	int[] ary = {0,1,2,3,4};
