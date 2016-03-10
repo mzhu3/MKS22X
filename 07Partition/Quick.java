@@ -27,7 +27,7 @@ public class Quick{
 	int saveIndex =right;
 	swap(data,index,right);
 	right --;
-	while(left != right){
+	while(left < right){
 	    if(data[left] < save){
 		left++;
 	    }
@@ -64,12 +64,22 @@ public class Quick{
     public static String name(){
 	return "6,Zhu,Matthew";
     }
-	
+    
+    public static void quickSort(int[]data){
+         quickSort(data,0,data.length -1);
+    }
+    public static void quickSort(int[]data, int left, int right){
+	   if(left < right){
+	   int  index = partition(data,left,right);
+	    quickSort(data,left, index - 1);
+	    quickSort(data,index + 1,right);
+	}
+    }
     public static void main(String[]args){
 	int[] ary = {0,1,2,3,4};
 	int[]ary2 = {-3,13,4,12,2};
-	System.out.println(quickselect(ary2,2));
-	System.out.println(quickselect(ary2,4));
+        quickSort(ary2);
+	System.out.println(Arrays.toString(ary2));
     }
 	
 }
