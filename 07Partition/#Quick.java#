@@ -15,10 +15,11 @@ public class Quick{
                 k=i;
             }
         }
-    return k;
-}
+	return k;
+    }
     private static int partition(int[]data, int left, int right){
 	Random rand = new Random();
+	int counter = 0;
 	int index = rand.nextInt((right - left) + 1)+left;
 	if(left == right){
 	    return left;
@@ -28,14 +29,18 @@ public class Quick{
 	swap(data,index,right);
 	right --;
 	while(left < right){
-	    if(data[left] < save){
+	    if(data[left] == save){
+		counter++;
+	    }
+	    if(data[left] <= save){
 		left++;
 	    }
 	    else{
-	    swap(data,left,right);
-	    right --;
-	    }
+		swap(data,left,right);
+		right --;
+	    }	
 	}
+	
 	if(data[left] < save){
 	    swap(data,right+1,saveIndex);
 	}
