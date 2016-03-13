@@ -20,7 +20,8 @@ public class Quick{
     private static int[] partition(int[]data, int left, int right){
 	Random rand = new Random();
 	int index = rand.nextInt((right - left) + 1)+left;
-	int counter = 0;;
+	int counter = 0;
+	ArrayList<Integer> IndexPiv = new ArrayList<Integer>();
 	if(left == right){
 	    int[]values = {left,right};
 	    return values ;
@@ -32,8 +33,8 @@ public class Quick{
 	while(left < right){
 	    if(data[left] ==save){
 		counter++;
-		swap(data,left,right);
-		right--;
+		IndexPiv.add(left);
+		left++;	
 	    }
 	    if(data[left] <= save){
 		left++;
@@ -44,9 +45,8 @@ public class Quick{
 	    }
 	}
 	while(counter > 0){
-	    swap(data,left,right);
-	    left++;
-	    right--;
+	    for(int i = 0; i <IndexPiv.size(); i++){
+		
 	}
 	if(data[left] < save){
 	    swap(data,right+1,saveIndex);
@@ -138,8 +138,9 @@ public class Quick{
 	int[] ary = {0,1,2,3,4};
 	int[]ary2 = {-3,13,4,12,2};
 	int[]ary3 = {0,1,2,3,0,1,2,3,0,1,2,3,0,1,2,3,0,1,2,3};
-        quickSort(ary3);
-	System.out.println(Arrays.toString(ary3));
+	partition(ary3,0,8);
+	// quickSort(ary3);
+		System.out.println(Arrays.toString(ary3));
     }
 	
 }
