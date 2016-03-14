@@ -21,22 +21,25 @@ public class Quick{
 	Random rand = new Random();
 	int index = rand.nextInt((right - left) + 1)+left;
 	int counter = 0;
-	ArrayList<Integer> IndexPiv = new ArrayList<Integer>();
+	int[]values = new int[2];
 	if(left == right){
-	    int[]values = {left,right};
+	    values[0] = left;
+	    values[1] = right;
 	    return values ;
 	}
 	int save = data[index];
-	int saveIndex =right;
+	int saveIndex =right-1;
+	int saveIndexL = left;
+	int pivSpot = 0;
 	swap(data,index,right);
 	right --;
-	while(left < right){
+	while(left <= right){
 	    if(data[left] ==save){
+	        left++;
 		counter++;
-		IndexPiv.add(left);
-		left++;	
 	    }
-	    if(data[left] <= save){
+	    if(data[left] < save){
+		pivSpot++;
 		left++;
 	    }
 	    else{
@@ -44,17 +47,15 @@ public class Quick{
 		right --;
 	    }
 	}
+	int savePivSpot = pivSpot;
 	while(counter > 0){
-	    for(int i = 0; i <IndexPiv.size(); i++){
-		
+	    data[pivSpot]=save;
+	    pivSpot++;
+	    saveIndex++;
+	    counter--;
 	}
-	if(data[left] < save){
-	    swap(data,right+1,saveIndex);
-	}
-	else{
-	    swap(data,left,saveIndex);
-	}
-	int[] values = {left,right};
+	values[0]=savePivSpot+saveIndexL;
+	values[1]=saveIndex+saveIndexL;
 	return values;
     }
     public static int quickselect(int[]data, int k){
@@ -79,15 +80,15 @@ public class Quick{
     }
     
     public static void quickSort(int[]data){
-	int[]values = {0,data.length-1};
-	quickSort(data,values);
+
+	quickSort(data,0,data.length-1);
     }
-    public static void quickSort(int[]data,int[]values){
-	int left = values[0];
-	int right = values[1];
+    public static void quickSort(int[]data,int left,int right){
 	if(left < right){
 	    int[]  index = partition(data,left,right);
-	    quickSort(data,index);
+	    System.out.println( Arrays.toString(data));
+	    quickSort(data,left,index[0]-1);
+	    quickSort(data,index[1]+1,right);
 	}
     }
     private static int partitionOld(int[]data, int left, int right){
@@ -137,9 +138,8 @@ public class Quick{
     public static void main(String[]args){
 	int[] ary = {0,1,2,3,4};
 	int[]ary2 = {-3,13,4,12,2};
-	int[]ary3 = {0,1,2,3,0,1,2,3,0,1,2,3,0,1,2,3,0,1,2,3};
-	partition(ary3,0,8);
-	// quickSort(ary3);
+	int[]ary3 = {0,1,2,0,1,2};
+	 quickSort(ary3);
 		System.out.println(Arrays.toString(ary3));
     }
 	
