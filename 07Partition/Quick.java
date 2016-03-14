@@ -22,40 +22,50 @@ public class Quick{
 	int index = rand.nextInt((right - left) + 1)+left;
 	int counter = 0;
 	int[]values = new int[2];
+	int[]tempAry = new int[right-left +1];
 	if(left == right){
 	    values[0] = left;
 	    values[1] = right;
 	    return values ;
 	}
 	int save = data[index];
-	int saveIndex =right-1;
+	int saveIndex =right;
 	int saveIndexL = left;
 	int pivSpot = 0;
-	swap(data,index,right);
-	right --;
+	int tempR = tempAry.length -1;
 	while(left <= right){
 	    if(data[left] ==save){
+		//	System.out.println( Arrays.toString(tempAry));
 	        left++;
 		counter++;
 	    }
-	    if(data[left] < save){
+	    else if(data[left] < save){
+		//	System.out.println( Arrays.toString(tempAry));
+		tempAry[pivSpot] = data[left];
 		pivSpot++;
 		left++;
 	    }
 	    else{
-		swap(data,left,right);
-		right --;
+		//	System.out.println( Arrays.toString(tempAry));
+		tempAry[tempR] = data[left];
+		tempR--;
+		left++;
 	    }
 	}
 	int savePivSpot = pivSpot;
 	while(counter > 0){
-	    data[pivSpot]=save;
+	    //  System.out.println( Arrays.toString(tempAry));
+	    tempAry[pivSpot]=save;
 	    pivSpot++;
-	    saveIndex++;
 	    counter--;
 	}
+	for(int i = saveIndexL; i <= right; i++){
+	    data[i] = tempAry[counter];
+	    counter++;
+	}
+	//	System.out.println(Arrays.toString(tempAry));
 	values[0]=savePivSpot+saveIndexL;
-	values[1]=saveIndex+saveIndexL;
+	values[1]=tempR+saveIndexL;
 	return values;
     }
     public static int quickselect(int[]data, int k){
@@ -86,7 +96,7 @@ public class Quick{
     public static void quickSort(int[]data,int left,int right){
 	if(left < right){
 	    int[]  index = partition(data,left,right);
-	    System.out.println( Arrays.toString(data));
+	    //  System.out.println( Arrays.toString(data));
 	    quickSort(data,left,index[0]-1);
 	    quickSort(data,index[1]+1,right);
 	}
@@ -135,12 +145,45 @@ public class Quick{
 	}
 
     }
+    private static void quickSortOld(int[]data){
+	quickSortOld(data,0,data.length-1);
+    }
+    private static void quickSortOld(int[]data,int left,int right){
+	if(left <right){
+	    int index = partitionOld(data,left,right);
+	    quickSortOld(data,left,index-1);
+	    quickSortOld(data,index+1,right);
+	}
+    }
     public static void main(String[]args){
 	int[] ary = {0,1,2,3,4};
 	int[]ary2 = {-3,13,4,12,2};
 	int[]ary3 = {0,1,2,0,1,2};
-	 quickSort(ary3);
-		System.out.println(Arrays.toString(ary3));
+	int[]ary4 = new int[4000000];
+	int[]ary4a = new int[ary4.length];
+	for(int i = 0; i <ary4.length; i++){
+	    ary4[i]= (int)(Math.random()*Integer.MAX_VALUE);
+	    ary4a[i]=ary4[i];
+	}
+	long startTime = System.currentTimeMillis();
+		quickSort(ary4);
+	long endTime = System.currentTimeMillis();
+	long Time = endTime - startTime;
+		System.out.println("A3: "+Time);
+	
+	long startTime2 = System.currentTimeMillis();
+		Arrays.sort(ary4);
+	long endTime2 = System.currentTimeMillis();
+	long Time2 = endTime2 - startTime2;
+		System.out.println("A1: "+Time2);
+	
+      	long startTime3 = System.currentTimeMillis();
+		quickSortOld(ary4);
+	long endTime3 = System.currentTimeMillis();
+	long Time3 = endTime3 - startTime3;
+	//  	System.out.println("A2: "+Time3);
+	//	System.out.println("Done:Sorted = "+Arrays.equals(ary4,ary4a));
+	//	System.out.println(Arrays.toString(ary3));
     }
 	
 }
