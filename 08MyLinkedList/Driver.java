@@ -13,16 +13,16 @@ public class Driver{
 	LL.add(100);
 	LL.add(122);
 	System.out.println(LL);
-	//	System.out.println(LL.get(2));
-	//	System.out.println(LL.set(3,3));
-	// 	System.out.println(LL);
-	//	System.out.println(LL.set(7,3));
-	//	System.out.println(LL);
-	//	System.out.println(LL.remove(2));
-	//	System.out.println(LL);
-	//	System.out.println(LL.add(2,100));
-	//	System.out.println(LL.toString());
-	System.out.println(LL.indexOf(999));
+		System.out.println("Get: "+LL.get(2));
+		System.out.println("set: "+LL.set(3,3));
+	 	System.out.println("Set List: "+LL);
+		System.out.println("set: "+LL.set(7,3));
+		System.out.println("Set List : "+LL);
+		System.out.println("Removed: "+LL.remove(2));
+		System.out.println("Removed list: "+LL);
+		System.out.println("Add : "+LL.add(2,100));
+		System.out.println("Add List : "+ LL);
+		System.out.println("IndexOf: "+LL.indexOf(999));
 			   
 	
     }

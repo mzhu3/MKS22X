@@ -30,21 +30,14 @@ public class MyLinkedList{
 	    return false;
 	}
 	else{
-	    while(current.getNext()!=null ){
-	    	counter++;
+	    while(counter < index - 1 ){
 		current= current.getNext();
-		if(counter == index - 1){
-		    current.setNext(value);
-		    current = current.getNext();
-		}
-		if(counter > index){
-		    current.setNext(current.getHead());
-		    current = current.getNext();
-		    
-		}
-	      }
-	      size++;
-	      
+		counter++;
+	    }
+	    LNode remainder = current.getNext();
+	    current.setNext(value);
+	    current.getNext().setNext(remainder);
+	    size ++;
 	    return true;
 	}
     }
@@ -78,9 +71,6 @@ public class MyLinkedList{
 	    return temp;
 	}
     }
-    public int size(){
-	return size;
-    }
     public Integer remove(int index){
 	LNode current = start;
 	int counter = 0;
@@ -95,7 +85,7 @@ public class MyLinkedList{
 	    }
 	    temp = current.getNext().getHead();;
 	    while(current.getNext()!= null){
-		current.setNext(current.getNext().getNext().getHead());
+		current.setNext(current.getNext().getHead());
 		current = current.getNext();
 	    }
 	    size --;
@@ -115,23 +105,24 @@ public class MyLinkedList{
 	return -1;
     
     }
+ 
     public String toString(){
-	if(size == 0){
-	    return "[]";
-	}
-	else{
-	    String ans = "[";
-	    LNode current = start;
-	    int counter = 0;
-	    while(counter < size&& current !=null  ){
-		ans += current.getHead()+", ";
-		current = current.getNext();
-		counter ++;
+	String ans = "[";
+	LNode p = start;
+	while(p != null){
+	    ans += p.getHead();
+	    if(p.getNext()!= null){
+		ans+=", ";
 	    }
-	    ans+= "]";
-	    return ans;
+	    p = p.getNext();
 	}
+	return ans+"]";
     }
+
+    public int size(){
+	return size;
+    }
+   
     private class LNode{
 	private int head;
 	private LNode next;
