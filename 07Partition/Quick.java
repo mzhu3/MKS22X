@@ -161,9 +161,11 @@ public class Quick{
 	int[]ary3 = {0,1,2,0,1,2};
 	int[]ary4 = new int[4000000];
 	int[]ary4a = new int[ary4.length];
+	int[]ary4b = new int[ary4.length];
 	for(int i = 0; i <ary4.length; i++){
 	    ary4[i]= (int)(Math.random()*Integer.MAX_VALUE);
 	    ary4a[i]=ary4[i];
+	    ary4b[i]=ary4[i];
 	}
 	long startTime = System.currentTimeMillis();
 		quickSort(ary4);
@@ -172,16 +174,16 @@ public class Quick{
 		System.out.println("A3: "+Time);
 	
 	long startTime2 = System.currentTimeMillis();
-		Arrays.sort(ary4);
+		Arrays.sort(ary4a);
 	long endTime2 = System.currentTimeMillis();
 	long Time2 = endTime2 - startTime2;
 		System.out.println("A1: "+Time2);
 	
       	long startTime3 = System.currentTimeMillis();
-		quickSortOld(ary4);
+		quickSortOld(ary4b);
 	long endTime3 = System.currentTimeMillis();
 	long Time3 = endTime3 - startTime3;
-	//  	System.out.println("A2: "+Time3);
+      	System.out.println("A2: "+Time3);
 	//	System.out.println("Done:Sorted = "+Arrays.equals(ary4,ary4a));
 	//	System.out.println(Arrays.toString(ary3));
     }
