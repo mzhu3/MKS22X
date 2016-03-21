@@ -1,4 +1,4 @@
-public class MyLinkedList{
+public class MyLinkedList<T>{
     private int size;
     private LNode start;
     public MyLinkedList(){
@@ -6,8 +6,8 @@ public class MyLinkedList{
 	start = null;
     }
 
-    public boolean add(int value){
-	LNode current = start;
+    public boolean add(T value){
+	LNode<T> current = start;
 	if(start == null){
 	    start = new LNode(value);
 	    size++;
@@ -23,7 +23,7 @@ public class MyLinkedList{
 	}
 				
     }
-    public boolean add(int index, int value){
+    public boolean add(int index, T value){
 	LNode current = start;
 	int counter = 0;
 	if(index > size - 1){
@@ -42,7 +42,7 @@ public class MyLinkedList{
 	}
     }
     public int get(int index){
-	LNode current = start;
+	LNode<T> current = start;
 	int counter = 0;
 	if(index > size -1){
 	    return -1;
@@ -55,11 +55,11 @@ public class MyLinkedList{
 	    return current.getHead();
 	}
     }
-    public Integer set(int index, int newValue){
-	LNode current = start;
+    public void set(int index, T newValue){
+	LNode<T> current = start;
 	int counter = 0;
 	if(index > size -1){
-	    return null;
+	    throw new IndexOutOfBoundsException();
 	}
 	else{
 	    while(counter  < index - 1){
@@ -68,11 +68,10 @@ public class MyLinkedList{
 	    }
 	    int temp = current.getNext().getHead();
 	    current.setNext(newValue);
-	    return temp;
 	}
     }
-    public Integer remove(int index){
-	LNode current = start;
+    public void remove(int index){
+	LNode<T> current = start;
 	int counter = 0;
 	int temp = 0;
 	if(index > size - 1){
@@ -89,10 +88,9 @@ public class MyLinkedList{
 		current = current.getNext();
 	    }
 	    size --;
-	    return temp;
 	}
     }
-    public int indexOf(int value){
+    /*    public int indexOf(int value){
 	int counter = 0;
 	LNode current = start;
 	boolean there = false;
@@ -105,7 +103,7 @@ public class MyLinkedList{
 	return -1;
     
     }
- 
+    */
     public String toString(){
 	String ans = "[";
 	LNode p = start;
@@ -123,25 +121,25 @@ public class MyLinkedList{
 	return size;
     }
    
-    private class LNode{
-	private int head;
-	private LNode next;
-	public LNode(int value){
+    private class LNode<T>{
+	private T head;
+	private LNode<T> next;
+	public LNode(T value){
 	    head=  value;
 	}
-	private int getHead(){
+	private T getHead(){
 	    return head;
 	}
-	private LNode getNext(){
+	private LNode<T> getNext(){
 	    return next;
 	}
-	private void setNext(int value){
+	private void setNext(T value){
 	    next = new LNode(value);
 	}
-	private void setHead(int value){
+	private void setHead(T value){
 	    head = value;
 	}
-	private void setNext(LNode node){
+	private void setNext(LNode<T> node){
 	    next = node;
 	}
 	    
