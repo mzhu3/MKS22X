@@ -28,11 +28,18 @@ public class MyLinkedList<T>{
     public boolean add(int index, T value){
 	LNode current = start;
 	int counter = 0;
-	if(index > size){
+	if(index > size || index < 0){
 	    throw new IndexOutOfBoundsException();
 	}
 	if(index == size){
 	    this.add(value);
+	    return true;
+	}
+	if(index==0){
+	    LNode remainder = current;
+	    start = new LNode(value);
+	    start.setNext(remainder);
+	    size++;
 	    return true;
 	}
 	else{
@@ -41,7 +48,7 @@ public class MyLinkedList<T>{
 		counter++;
 	    }
 	    LNode remainder = current.getNext();
-	    current.setNext(value);
+	    current.setNext(new LNode(value));
 	    current.getNext().setNext(remainder);
 	    size ++;
 	    return true;
@@ -77,24 +84,41 @@ public class MyLinkedList<T>{
 	    return temp;
 	}
     }
+
     public T remove(int index){
 	LNode current = start;
 	int counter = 0;
 	T temp;
-	if(index > size - 1){
+	if(index > size - 1 || index < 0){
 	    throw new IndexOutOfBoundsException();
 	}
-	else{
-	    while(counter <index - 1 ){
-		current = current.getNext();
-		counter ++;
-	    }
-	    LNode remainder = current.getNext().getNext();
-	    temp = current.getNext().getHead();
-	    current.setNext(remainder);
+	if(index ==0){
+	    temp = current.getHead();
+	    LNode remainder = current.getNext();
+	    start.setNext(remainder);
+	    start = remainder;
+	    size--;
 	    return temp;
 	}
+	while(counter < index - 1 ){
+	    current = current.getNext();
+	    counter ++;
+	}
+	temp = current.getNext().getHead();
+	if(index == size-1){
+	    end = current;
+	}
+	LNode remainder = current.getNext().getNext();
+	current.setNext(remainder);
+
+	size--;
+	return temp;
     }
+
+	
+	
+
+    
     /*    public int indexOf(int value){
 	  int counter = 0;
 	  LNode current = start;
@@ -109,19 +133,31 @@ public class MyLinkedList<T>{
     
 	  }
     */
-    public String toString(){
-	String ans = "[";
-	LNode p = start;
-	while(p != null){
-	    ans += p.getHead();
-	    if(p.getNext()!= null){
-		ans+=", ";
+	public String toString(){
+	    String ans = "[";
+	    LNode p = start;
+	    while(p != null){
+		ans += p.getHead();
+		if(p.getNext()!= null){
+		    ans+=", ";
+		}
+		p = p.getNext();
 	    }
-	    p = p.getNext();
+	    return ans+"]";
 	}
-	return ans+"]";
+	public String toString(boolean a){
+	if(a){
+	    return this.toString() +"Head: " + getHead() + "\t" + "Tail: " + getTail();
+	}
+	return this.toString();
+    
     }
-
+    public String getHead(){
+	return ""+start.getHead();
+    }
+    public String getTail(){
+	return ""+end.getHead();
+    }
     public int size(){
 	return size;
     }
@@ -150,3 +186,4 @@ public class MyLinkedList<T>{
 	    
     }
 }
+// Billy helped with fixing the remove/add at wrong indexes
