@@ -1,4 +1,7 @@
-public class MyLinkedList<T>{
+import java.util.*;
+import java.lang.*;
+import java.util.Iterator;
+public class MyLinkedList<T> implements Iterable<T>{
     private int size;
     private LNode start,end;
     
@@ -155,7 +158,33 @@ public class MyLinkedList<T>{
     public int size(){
 	return size;
     }
-   
+    
+    public class LLIt implements Iterator<T> {
+	LNode current;
+
+	public LLIt() {
+	    current = start;
+	}
+	
+	public boolean hasNext() {
+	    if(current.getNext()!=null){
+		return true;
+	    }
+	    return false;
+	}
+	public T next() {
+	    return current.getHead();
+	}
+
+	public void remove() {
+	    throw new UnsupportedOperationException();
+	}
+    }
+    
+    public Iterator<T> iterator() {
+	return new LLIt();
+    }
+    
     private class LNode{
 	private T head;
 	private LNode next;
