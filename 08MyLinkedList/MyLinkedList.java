@@ -113,39 +113,33 @@ public class MyLinkedList<T>{
 
 	size--;
 	return temp;
-    }
-
-	
-	
-
-    
-    /*    public int indexOf(int value){
-	  int counter = 0;
-	  LNode current = start;
-	  boolean there = false;
-	  while(counter < size){
-	  if(current.getHead()==value){
-	  return counter;
-	  }
-	  counter ++;
-	  }
-	  return -1;
-    
-	  }
-    */
-	public String toString(){
-	    String ans = "[";
-	    LNode p = start;
-	    while(p != null){
-		ans += p.getHead();
-		if(p.getNext()!= null){
-		    ans+=", ";
-		}
-		p = p.getNext();
+    } 
+    public int indexOf(T value){
+	int counter = 0;
+	LNode current = start;
+	while(counter < size){
+	    if(current.getHead().equals(value)){
+		return counter;
 	    }
-	    return ans+"]";
+	    counter ++;
 	}
-	public String toString(boolean a){
+	return -1;
+    
+    }
+    
+    public String toString(){
+	String ans = "[";
+	LNode p = start;
+	while(p != null){
+	    ans += p.getHead();
+	    if(p.getNext()!= null){
+		ans+=", ";
+	    }
+	    p = p.getNext();
+	}
+	return ans+"]";
+    }
+    public String toString(boolean a){
 	if(a){
 	    return this.toString() +"Head: " + getHead() + "\t" + "Tail: " + getTail();
 	}
