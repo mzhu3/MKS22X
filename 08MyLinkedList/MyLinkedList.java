@@ -160,20 +160,25 @@ public class MyLinkedList<T> implements Iterable<T>{
     }
     
     public class LLIt implements Iterator<T> {
-	LNode current;
+	private LNode current;
 
 	public LLIt() {
 	    current = start;
 	}
 	
-	public boolean hasNext() {
-	    if(current.getNext()!=null){
+	public boolean hasNext(){
+	    if(current!=null){
 		return true;
 	    }
 	    return false;
 	}
 	public T next() {
-	    return current.getHead();
+	    if(!hasNext()){
+		throw new NoSuchElementException();
+	    }
+	    T ans = current.getHead();
+	    current = current.getNext();
+	    return ans;
 	}
 
 	public void remove() {
