@@ -7,8 +7,8 @@ public class MyStack<T> extends MyLinkedList<T>{
     public MyStack(){
 	LinkedStack = new MyLinkedList<T>();
     }
-   public void push(T item){
-       LinkedStack.add(0,item);
+    public void push(T item){
+	LinkedStack.add(0,item);
     }
     /**
      * Removes the top item from the stack and returns it.
@@ -38,11 +38,44 @@ public class MyStack<T> extends MyLinkedList<T>{
     public int size(){
 	return LinkedStack.size();
     }
+    
     /**
      * Returns whether the stack is empty or not.
      */
     public boolean isEmpty(){
-	return (LinkedStack.size()==0);
-	
+	return (LinkedStack.size()==0);	
+    }
+    public static boolean isMatching(String s){
+	String copy = s;
+	if(s[0].equals(")")||
+	   s[0].equals("}")||
+	   s[0].equals("]")||
+	   s[0].equals(">")||
+	   s[s.length()-1].equals("(")||
+	   s[s.length()-1].equals("{")||
+	   s[s.length()-1].equals("[")||
+	   s[s.length()-1].equals("<")){
+	    return false;
+	}
+        for(int i = 0; i < copy.length(); i++){
+	    if(copy[i].equals(")")){
+		if(!(copy[i-1].equals("("))){
+		    return false;
+		}
+		else{
+		    int save = i - 1;
+		    copy = copy.replace(copy[i-1]+copy[i],"");
+		    i = save;
+		}
+	    }
+	    return true;
+	}
+    }
+    public static void main(String[]args){
+	String input = "";
+	if(args.length > 0){
+	    input = args[0];
+	}
+	System.out.println(isMatching(input));
     }
 }
