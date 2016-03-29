@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class MyQueue<T>{
+public class MyQueue<T> extends MyLinkedList<T>{
     private MyLinkedList<T> LinkedQueue;
 
     public MyQueue(){

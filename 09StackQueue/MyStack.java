@@ -1,5 +1,5 @@
 import java.util.*;
-public class MyStack<T>{
+public class MyStack<T> extends MyLinkedList<T>{
     private MyLinkedList<T> LinkedStack;
     /**
      * Adds the given item to the top of the stack.
