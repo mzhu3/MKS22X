@@ -1,3 +1,4 @@
+import java.util.*;
 public class ParenDemo{
     public static boolean isMatching(String s){
 	MyStack<String> StringStack = new MyStack<String>();
@@ -18,25 +19,45 @@ public class ParenDemo{
 	       s.substring(i,i+1).equals("<")){
 		StringStack.push(s.substring(i,i+1));
 	    }
-	    if(s.substring(i,i+1).equals(")")){
-		if(!StringStack.pop().equals("(")){
-		    return false;
+	    try{
+		if(s.substring(i,i+1).equals(")")){
+		    if(!StringStack.pop().equals("(")){
+			return false;
+		    }
 		}
 	    }
-	    if(s.substring(i,i+1).equals("]")){
-		if(!StringStack.pop().equals("[")){
-		    return false;
+	    catch(NoSuchElementException e){
+		return false;
+	    }
+	    try{
+		if(s.substring(i,i+1).equals("]")){
+		    if(!StringStack.pop().equals("[")){
+			return false;
+		    }
 		}
 	    }
-	    if(s.substring(i,i+1).equals("}")){
-		if(!StringStack.pop().equals("{")){
-		    return false;
+	    catch(NoSuchElementException e){
+		return false;
+	    }
+	    try{
+		if(s.substring(i,i+1).equals("}")){
+		    if(!StringStack.pop().equals("{")){
+			return false;
+		    }
 		}
 	    }
-	    if(s.substring(i,i+1).equals(">")){
-		if(!StringStack.pop().equals("<")){
-		    return false;
+	    catch(NoSuchElementException e){
+		return false;
+	    }
+	    try{
+		if(s.substring(i,i+1).equals(">")){
+		    if(!StringStack.pop().equals("<")){
+			return false;
+		    }
 		}
+	    }
+	    catch(NoSuchElementException e){
+		return false;
 	    }
 	}
 	return StringStack.isEmpty();
