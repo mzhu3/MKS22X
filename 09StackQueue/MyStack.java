@@ -45,5 +45,7 @@ public class MyStack<T> extends MyLinkedList<T>{
     public boolean isEmpty(){
 	return (LinkedStack.size()==0);	
     }
+    public static void main(String[]args){
+	
 
 }
