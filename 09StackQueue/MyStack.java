@@ -46,6 +46,33 @@ public class MyStack<T> extends MyLinkedList<T>{
 	return (LinkedStack.size()==0);	
     }
     public static void main(String[]args){
-	
-
+	MyStack<String> S = new MyStack<String>();
+	Stack<String> D = new Stack<String>();
+        try{
+	    S.pop();
+	}
+	catch(NoSuchElementException e){
+	}
+	try{
+	    S.peek();
+	}
+	catch(NoSuchElementException e){
+	}
+	Random rand = new Random(0);
+	for(int i = 0; i < 6000; i ++){
+	    S.push(i +"");
+	    D.push(i+"");
+	}
+			
+	System.out.println(S.isEmpty());
+	System.out.println(D.isEmpty());
+	int x1 = rand.nextInt(6000);
+	for(int i = 0; i < x1; i ++){
+	    if(!S.pop().equals(D.pop())){
+		System.out.println("Not same match");
+		System.exit(1);
+	    }
+	}
+    }
 }
+

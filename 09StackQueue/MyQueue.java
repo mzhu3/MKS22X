@@ -48,4 +48,37 @@ public class MyQueue<T> extends MyLinkedList<T>{
     public boolean isEmpty(){
 	return LinkedQueue.size()==0;
     }
+
+    public static void main(String[]args){
+	MyQueue<String> S = new MyQueue<String>();
+	Queue<String> D = new LinkedList<String>();
+        try{
+	    S.dequeue();
+	}
+	catch(NoSuchElementException e){
+	}
+	try{
+	    S.peek();
+	}
+	catch(NoSuchElementException e){
+	}
+	Random rand = new Random(0);
+	for(int i = 0; i < 6000; i ++){
+	    S.enqueue(i +"");
+	    D.add(i+"");
+	}
+			
+	System.out.println(S.isEmpty());
+	System.out.println(D.isEmpty());
+	int x1 = rand.nextInt(6000);
+	for(int i = 0; i < x1; i ++){
+	    if(!S.dequeue().equals(D.remove())){
+		System.out.println("Not same match");
+		System.exit(1);
+	    }
+	}
+    }
 }
+
+
+
