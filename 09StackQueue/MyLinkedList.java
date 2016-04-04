@@ -24,6 +24,7 @@ public class MyLinkedList<T> implements Iterable<T>{
 	}
 	LNode current = new LNode(value);
 	end.setNext(current);
+	current.setPrev(end);
 	end = current;
 	size++;
 	return true;
@@ -31,6 +32,7 @@ public class MyLinkedList<T> implements Iterable<T>{
     public boolean add(int index, T value){
 	LNode current = start;
 	int counter = 0;
+	LNode conV = new LNode(value);
 	if(index > size || index < 0){
 	    throw new IndexOutOfBoundsException();
 	}
@@ -50,8 +52,10 @@ public class MyLinkedList<T> implements Iterable<T>{
 		current= current.getNext();
 		counter++;
 	    }
+	    conV.setNext(current.getNext());
 	    LNode remainder = current.getNext();
-	    current.setNext(new LNode(value));
+	    current.setNext(conV);
+	    current.getNext().setPrev(current);
 	    current.getNext().setNext(remainder);
 	    size ++;
 	    return true;
@@ -113,7 +117,7 @@ public class MyLinkedList<T> implements Iterable<T>{
 	}
 	LNode remainder = current.getNext().getNext();
 	current.setNext(remainder);
-
+	current.getNext().setPrev(current);
 	size--;
 	return temp;
     } 
@@ -193,11 +197,15 @@ public class MyLinkedList<T> implements Iterable<T>{
     private class LNode{
 	private T head;
 	private LNode next;
+	private LNode prev;
 	public LNode(T value){
 	    head=  value;
 	}
 	private T getHead(){
 	    return head;
+	}
+	private LNode getPrev(){
+	    return prev;
 	}
 	private LNode getNext(){
 	    return next;
@@ -210,6 +218,9 @@ public class MyLinkedList<T> implements Iterable<T>{
 	}
 	private void setNext(LNode node){
 	    next = node;
+	}
+	private void setPrev(LNode value){
+	    prev = value;
 	}
 	    
     }
