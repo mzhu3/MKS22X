@@ -21,7 +21,7 @@ public class MyDeque<T>{
     public String toString(){
 	String ans = "[";
 	for(int i = 0; i <size; i ++){
-		ans += data[i] + " ,";
+	    ans += data[i] + " ,";
 
 	}
 	ans+="]" + "   size:" + size+ "   start:"+start+"   end:" + end;
@@ -33,12 +33,7 @@ public class MyDeque<T>{
 	int counter = 0;
 	int tempSize = size;
 	for(int i = 0; i < size; i ++){
-	    if(start != size){
-		temp[i] = data[start];
-		start ++;
-	    }
-	    temp[i] = data[counter];
-	    counter++;
+	    temp[i] = (this.removeFirst());
 	}
 	data = temp;
 	start = 0;
@@ -67,7 +62,7 @@ public class MyDeque<T>{
 	    data[0] = value;
 	}
 	else{
-	    data[end + counter2+1] = value;
+	    data[end+1] = value;
 	    counter++;
 	    end ++;
 	}
@@ -82,6 +77,7 @@ public class MyDeque<T>{
 	    start = 0;
 	}
 	else{
+	    
 	    start ++;
 	}
 	size --;
@@ -115,16 +111,16 @@ public class MyDeque<T>{
     }
     public static void main(String[]args){
 	MyDeque<Integer>deq = new MyDeque<Integer>();
-		deq.addFirst(10);
-		deq.addFirst(11);
-		deq.addFirst(12);
-		deq.addFirst(14);
-			deq.addLast(1);
-		deq.addLast(0);
-		deq.addLast(100);
+	deq.addFirst(10);
+	deq.addLast(11);
+	deq.addFirst(12);
+	deq.addFirst(14);
+	deq.addLast(1);
+	deq.addLast(0);
+	deq.addLast(100);
 	System.out.println(deq);
-		deq.removeFirst();
-		deq.removeLast();
+	deq.removeFirst();
+	deq.removeLast();
 	System.out.println(deq);
     }
 	
