@@ -25,7 +25,7 @@ public class MyLinkedList<T> implements Iterable<T>{
 	LNode current = new LNode(value);
 	end.setNext(current);
 	current.setPrev(end);
-	end = current;
+	end = end.getNext();
 	size++;
 	return true;
     }
@@ -55,6 +55,7 @@ public class MyLinkedList<T> implements Iterable<T>{
 	    conV.setNext(current.getNext());
 	    LNode remainder = current.getNext();
 	    current.setNext(conV);
+	    conV.getNext().setPrev(conV);
 	    current.getNext().setPrev(current);
 	    current.getNext().setNext(remainder);
 	    size ++;

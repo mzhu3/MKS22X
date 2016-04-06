@@ -19,21 +19,18 @@ public class MyDeque<T>{
 	return size;
     }
     public String toString(){
-	String ans = "[";
-	for(int i = 0; i <size; i ++){
-	    ans += data[i] + " ,";
+	String ans = Arrays.toString(data);
 
-	}
-	ans+="]" + "   size:" + size+ "   start:"+start+"   end:" + end;
+	ans+= "   size:" + size+ "   start:"+start+"   end:" + end;
 	return ans;
     }
-	
+
     private void grow(){
-        Object[]temp = new Object[data.length * 2];
+	Object[]temp = new Object[data.length * 2];
 	int counter = 0;
 	int tempSize = size;
 	for(int i = 0; i < size; i ++){
-	    temp[i] = (this.removeFirst());
+	    temp[i] = (removeFirst());
 	}
 	data = temp;
 	start = 0;
@@ -73,12 +70,9 @@ public class MyDeque<T>{
 	    throw new NoSuchElementException();
 	}
 	T temp = (T)(data[start]);
-	if(start == data.length - 1){
+	start ++;
+	if(start == data.length ){
 	    start = 0;
-	}
-	else{
-	    
-	    start ++;
 	}
 	size --;
 	return temp;
@@ -88,12 +82,11 @@ public class MyDeque<T>{
 	    throw new NoSuchElementException();
 	}
 	T temp = (T)(data[end]);
+	end --;
 	if(end ==0){
 	    end = data.length - 1;
 	}
-	else{
-	    end --;
-	}
+
 	size --;
 	return temp;
     }
@@ -119,11 +112,12 @@ public class MyDeque<T>{
 	deq.addLast(0);
 	deq.addLast(100);
 	System.out.println(deq);
-	deq.removeFirst();
-	deq.removeLast();
+	System.out.println("removed front: "+ deq.removeFirst());
+	System.out.println("removed back: "+deq.removeLast());
 	System.out.println(deq);
+	System.out.println("Front element: "+deq.getFirst());
     }
 	
 	
 }
-    
+       
