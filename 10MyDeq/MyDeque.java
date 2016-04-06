@@ -19,10 +19,34 @@ public class MyDeque<T>{
 	return size;
     }
     public String toString(){
+	int counter = start;
+	int counter2 = end;
 	String ans = Arrays.toString(data);
-
+	String ans2 = "[";
 	ans+= "   size:" + size+ "   start:"+start+"   end:" + end;
-	return ans;
+	while(counter <= end && counter < data.length){
+	    if(counter==end){
+		ans2+=""+data[counter];
+	    }
+	    else{
+		ans2+=""+data[counter]+" ,";
+	    }
+	    counter++;
+	}
+	if(end < start){
+	    while(counter2 < start){
+		if(counter2==end){
+		    ans2+=""+data[counter2];
+		}
+		else{
+		    ans2+=""+data[counter2]+" ,";
+		}
+		counter2++;
+	    }
+	}
+	ans2+= "]" +"  size:" + size+ "   start:"+start+"   end:" + end;
+	String finalAns = ans+"\n"+ans2;
+	return finalAns;
     }
 
     private void grow(){
