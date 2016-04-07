@@ -9,13 +9,17 @@ public class MyDeque<T>{
     private int counter2;
     public MyDeque(){
 	data = new Object[10];
+	start = 0;
+	end = data.length - 1;
 	size = 0;
     }
     public MyDeque(int a){
 	data = new Object[a];
+	start = 0;
+	end = data.length - 1;
 	size = 0;
     }
-    private int size(){
+    public int size(){
 	return size;
     }
     public String toString(){
@@ -24,38 +28,52 @@ public class MyDeque<T>{
 	String ans = Arrays.toString(data);
 	String ans2 = "[";
 	ans+= "   size:" + size+ "   start:"+start+"   end:" + end;
-	while(counter <= end && counter < data.length){
-	    if(counter==end){
+	/*	while(counter <= end && counter < data.length){
+		if(counter==end){
 		ans2+=""+data[counter];
-	    }
-	    else{
-		ans2+=""+data[counter]+" ,";
-	    }
-	    counter++;
-	}
-	if(end < start){
-	    while(counter2 < start){
-		if(counter2==end){
-		    ans2+=""+data[counter2];
 		}
 		else{
-		    ans2+=""+data[counter2]+" ,";
+		ans2+=""+data[counter]+" ,";
+		}
+		counter++;
+		}
+		if(end < start){
+		while(counter2 < start){
+		if(counter2==end){
+		ans2+=""+data[counter2];
+		}
+		else{
+		ans2+=""+data[counter2]+" ,";
 		}
 		counter2++;
-	    }
-	}
-	ans2+= "]" +"  size:" + size+ "   start:"+start+"   end:" + end;
+		}
+		}
+		ans2+= "]" +"  size:" + size+ "   start:"+start+"   end:" + end;*/
 	String finalAns = ans+"\n"+ans2;
 	return finalAns;
     }
 
     private void grow(){
 	Object[]temp = new Object[data.length * 2];
-	int counter = 0;
+	int counter = start;
 	int tempSize = size;
-	for(int i = 0; i < size; i ++){
-	    temp[i] = (removeFirst());
+	int counter2 = end;
+        int arrayCounter = 0;
+	while(counter <= end && counter <data.length){
+	    temp[arrayCounter] = data[counter];
+	    counter++;
+	    arrayCounter++;
 	}
+	if(end<start){
+	    while(counter2<start){
+		if(counter2 ==end){
+		    temp[arrayCounter] = data[counter2];
+		}
+		counter++;
+		arrayCounter++;
+	    }
+	}
+	    
 	data = temp;
 	start = 0;
 	end = tempSize - 1;
@@ -90,38 +108,41 @@ public class MyDeque<T>{
 	size ++;
     }
     public T removeFirst(){
-	if((T)(data[start])==null){
+	if(size==0){
 	    throw new NoSuchElementException();
 	}
 	T temp = (T)(data[start]);
-	start ++;
-	if(start == data.length ){
+	if(start == data.length - 1 ){
 	    start = 0;
+	}
+	else{
+	    start++;
 	}
 	size --;
 	return temp;
     }
     public T removeLast(){
-	if((T)(data[end])==null){
+	if(size==0){
 	    throw new NoSuchElementException();
 	}
 	T temp = (T)(data[end]);
-	end --;
 	if(end ==0){
 	    end = data.length - 1;
 	}
-
+	else{
+	    end--;
+	}
 	size --;
 	return temp;
     }
     public T getFirst(){
-	if((T)(data[start])==null){
+	if(size==0){
 	    throw new NoSuchElementException();
 	}
 	return (T)(data[start]);
     }
     public T getLast(){
-	if((T)(data[end])==null){
+	if(size==0){
 	    throw new NoSuchElementException();
 	}
 	return (T)(data[end]);
@@ -141,7 +162,6 @@ public class MyDeque<T>{
 	System.out.println(deq);
 	System.out.println("Front element: "+deq.getFirst());
     }
-	
 	
 }
        
