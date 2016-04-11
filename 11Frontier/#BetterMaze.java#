@@ -1,0 +1,12 @@
+public class BetterMaze{
+    public class Node{
+	private int position;
+	private Node prev;
+	
+	public Node(int id, 
+    
+    private char[][] maze;
+    private int[] solution;
+    private int startRow;
+    private Frontier<Node> placeToGo;
+    private boolean animate;
