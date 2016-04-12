@@ -2,9 +2,9 @@ import java.util.*;
 import java.io.*;
 
 public class BetterMaze{
-    private class Node{
+    public class Node{
 	private Node prev;
-	private int[] id;
+	public int[] id;
 
 	public Node(int posx,int posy, Node prev){
 	    int[] id = new int[2];
@@ -34,7 +34,7 @@ public class BetterMaze{
 
     private char[][] maze;
     private int[]    solution;
-    private int      startRow,startCol;
+    public int      startRow,startCol;
     private Frontier<Node> placesToGo;
     private boolean  animate;//default to false
 
@@ -77,6 +77,7 @@ public class BetterMaze{
     private boolean solve(){  
 	Node S = new Node(startRow,startCol);
 	placesToGo.add(S);
+	//	System.out.println(placesToGo.next().id[0]== 3);
 	while(placesToGo.hasNext()){
 	    Node temp = placesToGo.next();
 	    if(maze[temp.getValueX()-1][temp.getValueY()]==' '){
@@ -173,8 +174,8 @@ public class BetterMaze{
 	    }
 	}
 
-	    return false;
-	}    
+	return false;
+    }    
     
    /**mutator for the animate variable  **/
     public void setAnimate(boolean b){
