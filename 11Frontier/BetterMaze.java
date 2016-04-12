@@ -3,7 +3,33 @@ import java.io.*;
 
 public class BetterMaze{
     private class Node{
+	private Node prev;
+	private int[] id;
 
+	public Node(int posx,int posy, Node prev){
+	    int[] id = new int[2];
+	    id[0]=posx;
+	    id[1]=posy;
+	    this.prev = prev;
+	}
+	public Node(int posx,int posy){
+	    int[] id = new int[2];
+	    id[0] = posx;
+	    id[1] = posy;
+	    prev = null;
+	}
+	public int getValueX(){
+	    return id[0];
+	}
+	public int getValueY(){
+	    return id[1];
+	}
+	public Node getPrev(){
+	    return prev;
+	}
+	public boolean hasPrev(){
+	    return prev !=null;
+	}
     }
 
     private char[][] maze;
@@ -12,45 +38,148 @@ public class BetterMaze{
     private Frontier<Node> placesToGo;
     private boolean  animate;//default to false
 
-   /**return a COPY of solution.
+    /**return a COPY of solution.
      *This should be : [x1,y1,x2,y2,x3,y3...]
      *the coordinates of the solution from start to end.
      *Precondition : one of the solveXXX methods has already been 
      * called (solveBFS OR solveDFS OR solveAStar)
      *(otherwise an empty array is returned)
      *Postcondition:  the correct solution is in the returned array
-    **/
+     **/
     public int[] solutionCoordinates(){
-        /** IMPLEMENT THIS **/      
-	return new int[1];
+        if(solveDFS()||solveBFS()){
+	    return solution;
+	}
+	else{
+	    return null;
+	}
     }    
 
 
     /**initialize the frontier as a queue and call solve
-    **/
+     **/
     public boolean solveBFS(){  
-        /** IMPLEMENT THIS **/      
-	return false;
+        placesToGo = new FrontierQueue<Node>();
+	return solve();
     }   
 
 
-   /**initialize the frontier as a stack and call solve
-    */ 
+    /**initialize the frontier as a stack and call solve
+     */ 
     public boolean solveDFS(){  
-        /** IMPLEMENT THIS **/  
-	return false;
+	placesToGo = new FrontierStack<Node>();
+	return solve();
     }    
 
-   /**Search for the end of the maze using the frontier. 
-      Keep going until you find a solution or run out of elements on the frontier.
+    /**Search for the end of the maze using the frontier. 
+       Keep going until you find a solution or run out of elements on the frontier.
     **/
     private boolean solve(){  
-        /** IMPLEMENT THIS **/  
-	return false;
-    }    
-     
+	Node S = new Node(startRow,startCol);
+	placesToGo.add(S);
+	while(placesToGo.hasNext()){
+	    Node temp = placesToGo.next();
+	    if(maze[temp.getValueX()-1][temp.getValueY()]==' '){
+		Node temp2 = new Node(temp.getValueX()-1,temp.getValueY(),temp);
+		placesToGo.add(temp2);
+	    }
+	    if(maze[temp.getValueX()+1][temp.getValueY()]==' '){
+		Node temp2 = new Node(temp.getValueX()+1,temp.getValueY(),temp);
+		placesToGo.add(temp2);
+	    }
+	    if(maze[temp.getValueX()][temp.getValueY()-1]==' '){
+		Node temp2 = new Node(temp.getValueX(),temp.getValueY()-1,temp);
+		placesToGo.add(temp2);
+	    }
+	    if(maze[temp.getValueX()-1][temp.getValueY()+1]==' '){
+		Node temp2 = new Node(temp.getValueX(),temp.getValueY()+1,temp);
+		placesToGo.add(temp2);
+	    }
+	    if(maze[temp.getValueX()+1][temp.getValueY()]=='E'){
+		MyStack<Node> ans = new MyStack<Node>();
+		Node temp2 = new Node(temp.getValueX()+1,temp.getValueY(),temp);
+	        Node current = temp2;
+		while(current.hasPrev()){
+		    ans.push(current);
+		    current = current.getPrev();
+		}
+		solution = new int[ans.size() * 2];
+		int counter = 0;
+		while(ans.isEmpty()!=true){
+		    Node temp3 = ans.pop();
+		    solution[counter]=temp3.getValueX();
+		    solution[counter+1]= temp3.getValueY();
+		    counter+=2;
+		    
+		}
+		return true;
+	    }
+	    if(maze[temp.getValueX()][temp.getValueY()+1]=='E'){
+		MyStack<Node> ans = new MyStack<Node>();
+		Node temp2 = new Node(temp.getValueX(),temp.getValueY()+1,temp);
+	        Node current = temp2;
+		while(current.hasPrev()){
+		    ans.push(current);
+		    current = current.getPrev();
+		}
+		solution = new int[ans.size() * 2];
+		int counter = 0;
+		while(ans.isEmpty()!=true){
+		    Node temp3 = ans.pop();
+		    solution[counter]=temp3.getValueX();
+		    solution[counter+1]= temp3.getValueY();
+		    counter+=2;
+		    
+		}
+		return true;
+	    }
+	    if(maze[temp.getValueX()][temp.getValueY()-1]=='E'){
+		MyStack<Node> ans = new MyStack<Node>();
+		Node temp2 = new Node(temp.getValueX(),temp.getValueY()-1,temp);
+	        Node current = temp2;
+		while(current.hasPrev()){
+		    ans.push(current);
+		    current = current.getPrev();
+		}
+		solution = new int[ans.size() * 2];
+		int counter = 0;
+		while(ans.isEmpty()!=true){
+		    Node temp3 = ans.pop();
+		    solution[counter]=temp3.getValueX();
+		    solution[counter+1]= temp3.getValueY();
+		    counter+=2;
+		    
+		}
+		return true;
+	    }
+	    if(maze[temp.getValueX()-1][temp.getValueY()]=='E'){
+		MyStack<Node> ans = new MyStack<Node>();
+		Node temp2 = new Node(temp.getValueX()-1,temp.getValueY(),temp);
+	        Node current = temp2;
+		while(current.hasPrev()){
+		    ans.push(current);
+		    current = current.getPrev();
+		}
+		solution = new int[ans.size() * 2];
+		int counter = 0;
+		while(ans.isEmpty()!=true){
+		    Node temp3 = ans.pop();
+		    solution[counter]=temp3.getValueX();
+		    solution[counter+1]= temp3.getValueY();
+		    counter+=2;
+		    
+		}
+		return true;
+	    }
+	}
+
+	    return false;
+	}    
+    
    /**mutator for the animate variable  **/
-    public void setAnimate(boolean b){  /** IMPLEMENT THIS **/ }    
+    public void setAnimate(boolean b){
+	animate = b;
+	/** IMPLEMENT THIS **/ }    
 
 
     public BetterMaze(String filename){
