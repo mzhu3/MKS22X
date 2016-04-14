@@ -1,8 +1,9 @@
+import java.util.*;
 public class FrontierStack<T> implements Frontier<T>{
-    private MyStack<T> myStack;
+    private Stack<T> myStack;
 
     public FrontierStack(){
-	myStack = new MyStack<T>();
+	myStack = new Stack<T>();
     }
     public void add(T element){
 	myStack.push(element);
@@ -11,6 +12,6 @@ public class FrontierStack<T> implements Frontier<T>{
 	return myStack.pop();
     }
     public boolean hasNext(){
-	return myStack.peek()!=null;
+	return myStack.empty();
     }
 }

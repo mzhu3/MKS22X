@@ -6,16 +6,14 @@ public class BetterMaze{
 	private Node prev;
 	public int[] id;
 
+
 	public Node(int posx,int posy, Node prev){
-	    int[] id = new int[2];
-	    id[0]=posx;
-	    id[1]=posy;
+	    id = new int[] {posx,posy};
+
 	    this.prev = prev;
 	}
 	public Node(int posx,int posy){
-	    int[] id = new int[2];
-	    id[0] = posx;
-	    id[1] = posy;
+	    id = new int[] {posx,posy};
 	    prev = null;
 	}
 	public int getValueX(){
@@ -77,9 +75,9 @@ public class BetterMaze{
     private boolean solve(){  
 	Node S = new Node(startRow,startCol);
 	placesToGo.add(S);
-	//	System.out.println(placesToGo.next().id[0]== 3);
 	while(placesToGo.hasNext()){
 	    Node temp = placesToGo.next();
+	    maze[temp.getValueX()][temp.getValueY()] = '.';
 	    if(maze[temp.getValueX()-1][temp.getValueY()]==' '){
 		Node temp2 = new Node(temp.getValueX()-1,temp.getValueY(),temp);
 		placesToGo.add(temp2);
@@ -250,7 +248,13 @@ public class BetterMaze{
 	catch (InterruptedException e) {
 	}
     }
-
+    public String toStringS(){
+	String ans = "[";
+	for(int i = 0; i < solution.length; i++){
+	    ans+=solution[i]+", ";
+	}
+	return ans+="]";
+    }
 
     public String toString(){
 	int maxr = maze.length;
