@@ -69,23 +69,25 @@ public class BetterMaze{
     public boolean end(Node id){
 	return maze[id.getValueX()][id.getValueY()]=='E';
     }
-    public void getMoves(Node id){
+    public ArrayList<Node> getMoves(Node id){
+	ArrayList<Node> moves = new ArrayList<Node>();
+	//	System.out.println(maze[id.getValueX()-1][id.getValueY()]==' '||maze[id.getValueX()-1][id.getValueY()]=='E');
+	//	System.out.println(maze[id.getValueX()+1][id.getValueY()]==' '||maze[id.getValueX()+1][id.getValueY()]=='E');
+	//	System.out.println(maze[id.getValueX()][id.getValueY()-1]==' '||maze[id.getValueX()][id.getValueY()-1]=='E');
+	//	System.out.println(maze[id.getValueX()][id.getValueY()+1]==' '||maze[id.getValueX()][id.getValueY()+1]=='E');
 	if(maze[id.getValueX()-1][id.getValueY()]==' '||maze[id.getValueX()-1][id.getValueY()]=='E'){
-	    Node temp2 = new Node(id.getValueX()-1,id.getValueY(),id);
-	    placesToGo.add(temp2);
+	    moves.add(new Node(id.getValueX()+1,id.getValueY(),id));
 	}
-	if(maze[id.getValueX()+1][id.getValueY()]==' '||maze[id.getValueX()+1][id.getValueY()]=='E'){
-	    Node temp2 = new Node(id.getValueX()+1,id.getValueY(),id);
-	    placesToGo.add(temp2);
+        if(maze[id.getValueX()+1][id.getValueY()]==' '||maze[id.getValueX()+1][id.getValueY()]=='E'){
+	    moves.add(new Node(id.getValueX()+1,id.getValueY(),id));
 	}
 	if(maze[id.getValueX()][id.getValueY()-1]==' '||maze[id.getValueX()][id.getValueY()-1]=='E'){
-	    Node temp2 = new Node(id.getValueX(),id.getValueY()-1,id);
-	    placesToGo.add(temp2);
+	    moves.add( new Node(id.getValueX(),id.getValueY()-1,id));
 	}
 	if(maze[id.getValueX()-1][id.getValueY()+1]==' '||maze[id.getValueX()-1][id.getValueY()+1]=='E'){
-	    Node temp2 = new Node(id.getValueX(),id.getValueY()+1,id);
-	    placesToGo.add(temp2);
+	   moves.add(new Node(id.getValueX(),id.getValueY()+1,id));
 	}
+	return moves;
     }
     private void getPath(Node id){
 	Stack<Node> ans = new Stack<Node>();
@@ -108,27 +110,32 @@ public class BetterMaze{
 	    counter2+=2;
 	}
     }
-    private boolean solve(){  
+    private boolean solve(){
+	int counter = 0;
 	Node s = new Node(startRow,startCol);
 	placesToGo.add(s);
 	//	System.out.println(placesToGo.hasNext());
 	while(placesToGo.hasNext()){
 	    Node temp = placesToGo.next();
 	    maze[temp.getValueX()][temp.getValueY()] = '.';
-	    getMoves(temp);
-	    if(end(temp)){
-		getPath(temp);
-	        
-		return true;
-	    }
-	    else{
-		getMoves(temp);
+	    // System.out.println(getMoves(temp).size());
+	    ArrayList<Node> posMoves = getMoves(temp);
+	    // System.out.println(posMoves);
+	    for(int i = 0; i < posMoves.size();i++){
+		if(end(posMoves.get(i))){
+		    getPath(posMoves.get(i));
+		    return true;
+		}
+		else{
+		    placesToGo.add(posMoves.get(i));
+		}
 	    }
 	    if(animate){
 		System.out.println(this);
 		wait(20);
 	    }
 	}
+	
 	return false;
     }    
     

@@ -8,10 +8,10 @@ public class Driver{
 	//System.out.println(m.startCol);
 	if(args.length < 1){
 	    // m.clearTerminal();
-	    System.out.println(m.solveDFS());
+	    m.solveDFS();
 	    m.clearTerminal();
 	    //System.out.println(m);
-	    System.out.println(m.solutionCoordinates());
+	      System.out.println(m.solutionCoordinates());
 	}
 	else{
 	    //  m.clearTerminal();

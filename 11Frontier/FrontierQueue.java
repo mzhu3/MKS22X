@@ -19,5 +19,9 @@ public class FrontierQueue<T> implements Frontier<T>{
 	stack.add("hi");
 	stack.add("bye");
 	System.out.println(stack.hasNext());
+	System.out.println(stack.next());
+	System.out.println(stack.hasNext());
+	System.out.println(stack.next());
+	System.out.println(stack.hasNext());
     }
 }

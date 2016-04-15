@@ -28,6 +28,8 @@ public class FrontierStack<T> implements Frontier<T>{
 	System.out.println(stack.next());
 	System.out.println(stack.next());
 	System.out.println(stack.hasNext());
+	stack.add("hi");
+	System.out.println(stack.hasNext());
     }
 }
 			  
