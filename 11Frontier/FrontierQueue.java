@@ -12,6 +12,12 @@ public class FrontierQueue<T> implements Frontier<T>{
 	return myQueue.remove();
     }
     public boolean hasNext(){
-	return myQueue.isEmpty();
+	return myQueue.peek()!=null;
+    }
+     public static void main(String[]args){
+	FrontierQueue<String> stack = new FrontierQueue<String>();
+	stack.add("hi");
+	stack.add("bye");
+	System.out.println(stack.hasNext());
     }
 }

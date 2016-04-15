@@ -9,7 +9,6 @@ public class BetterMaze{
 
 	public Node(int posx,int posy, Node prev){
 	    id = new int[] {posx,posy};
-
 	    this.prev = prev;
 	}
 	public Node(int posx,int posy){
@@ -34,7 +33,7 @@ public class BetterMaze{
     private int[]    solution;
     public int      startRow,startCol;
     private Frontier<Node> placesToGo;
-    private boolean  animate;//default to false
+    private boolean  animate; //default to false
 
     /**return a COPY of solution.
      *This should be : [x1,y1,x2,y2,x3,y3...]
@@ -45,18 +44,13 @@ public class BetterMaze{
      *Postcondition:  the correct solution is in the returned array
      **/
     public int[] solutionCoordinates(){
-        if(solveDFS()||solveBFS()){
-	    return solution;
-	}
-	else{
-	    return null;
-	}
-    }    
-
-
+	//System.out.println(!solveDFS());
+	return solution;
+    }
+    
     /**initialize the frontier as a queue and call solve
      **/
-    public boolean solveBFS(){  
+    public boolean solveBFS(){
         placesToGo = new FrontierQueue<Node>();
 	return solve();
     }   
@@ -72,110 +66,73 @@ public class BetterMaze{
     /**Search for the end of the maze using the frontier. 
        Keep going until you find a solution or run out of elements on the frontier.
     **/
+    public boolean end(Node id){
+	return maze[id.getValueX()][id.getValueY()]=='E';
+    }
+    public void getMoves(Node id){
+	if(maze[id.getValueX()-1][id.getValueY()]==' '||maze[id.getValueX()-1][id.getValueY()]=='E'){
+	    Node temp2 = new Node(id.getValueX()-1,id.getValueY(),id);
+	    placesToGo.add(temp2);
+	}
+	if(maze[id.getValueX()+1][id.getValueY()]==' '||maze[id.getValueX()+1][id.getValueY()]=='E'){
+	    Node temp2 = new Node(id.getValueX()+1,id.getValueY(),id);
+	    placesToGo.add(temp2);
+	}
+	if(maze[id.getValueX()][id.getValueY()-1]==' '||maze[id.getValueX()][id.getValueY()-1]=='E'){
+	    Node temp2 = new Node(id.getValueX(),id.getValueY()-1,id);
+	    placesToGo.add(temp2);
+	}
+	if(maze[id.getValueX()-1][id.getValueY()+1]==' '||maze[id.getValueX()-1][id.getValueY()+1]=='E'){
+	    Node temp2 = new Node(id.getValueX(),id.getValueY()+1,id);
+	    placesToGo.add(temp2);
+	}
+    }
+    private void getPath(Node id){
+	Stack<Node> ans = new Stack<Node>();
+	int counter = 0;
+	Node current = id;
+	while(current.hasPrev()){
+	    ans.push(current);
+	    counter++;
+	    current = current.getPrev();
+	}
+	solution = new int[counter * 2];
+	int counter2 = 0;
+	//	System.out.println(ans.empty());
+	while(!ans.empty()){
+	    Node temp = ans.pop();
+	    solution[counter2] = temp.getValueX();
+	    //    System.out.println(solution[counter2]);
+	    solution[counter2+1] = temp.getValueY();
+	    //    System.out.println(solution[counter2]);
+	    counter2+=2;
+	}
+    }
     private boolean solve(){  
-	Node S = new Node(startRow,startCol);
-	placesToGo.add(S);
+	Node s = new Node(startRow,startCol);
+	placesToGo.add(s);
+	//	System.out.println(placesToGo.hasNext());
 	while(placesToGo.hasNext()){
 	    Node temp = placesToGo.next();
 	    maze[temp.getValueX()][temp.getValueY()] = '.';
-	    if(maze[temp.getValueX()-1][temp.getValueY()]==' '){
-		Node temp2 = new Node(temp.getValueX()-1,temp.getValueY(),temp);
-		placesToGo.add(temp2);
-	    }
-	    if(maze[temp.getValueX()+1][temp.getValueY()]==' '){
-		Node temp2 = new Node(temp.getValueX()+1,temp.getValueY(),temp);
-		placesToGo.add(temp2);
-	    }
-	    if(maze[temp.getValueX()][temp.getValueY()-1]==' '){
-		Node temp2 = new Node(temp.getValueX(),temp.getValueY()-1,temp);
-		placesToGo.add(temp2);
-	    }
-	    if(maze[temp.getValueX()-1][temp.getValueY()+1]==' '){
-		Node temp2 = new Node(temp.getValueX(),temp.getValueY()+1,temp);
-		placesToGo.add(temp2);
-	    }
-	    if(maze[temp.getValueX()+1][temp.getValueY()]=='E'){
-		MyStack<Node> ans = new MyStack<Node>();
-		Node temp2 = new Node(temp.getValueX()+1,temp.getValueY(),temp);
-	        Node current = temp2;
-		while(current.hasPrev()){
-		    ans.push(current);
-		    current = current.getPrev();
-		}
-		solution = new int[ans.size() * 2];
-		int counter = 0;
-		while(ans.isEmpty()!=true){
-		    Node temp3 = ans.pop();
-		    solution[counter]=temp3.getValueX();
-		    solution[counter+1]= temp3.getValueY();
-		    counter+=2;
-		    
-		}
+	    getMoves(temp);
+	    if(end(temp)){
+		getPath(temp);
+	        
 		return true;
 	    }
-	    if(maze[temp.getValueX()][temp.getValueY()+1]=='E'){
-		MyStack<Node> ans = new MyStack<Node>();
-		Node temp2 = new Node(temp.getValueX(),temp.getValueY()+1,temp);
-	        Node current = temp2;
-		while(current.hasPrev()){
-		    ans.push(current);
-		    current = current.getPrev();
-		}
-		solution = new int[ans.size() * 2];
-		int counter = 0;
-		while(ans.isEmpty()!=true){
-		    Node temp3 = ans.pop();
-		    solution[counter]=temp3.getValueX();
-		    solution[counter+1]= temp3.getValueY();
-		    counter+=2;
-		    
-		}
-		return true;
+	    else{
+		getMoves(temp);
 	    }
-	    if(maze[temp.getValueX()][temp.getValueY()-1]=='E'){
-		MyStack<Node> ans = new MyStack<Node>();
-		Node temp2 = new Node(temp.getValueX(),temp.getValueY()-1,temp);
-	        Node current = temp2;
-		while(current.hasPrev()){
-		    ans.push(current);
-		    current = current.getPrev();
-		}
-		solution = new int[ans.size() * 2];
-		int counter = 0;
-		while(ans.isEmpty()!=true){
-		    Node temp3 = ans.pop();
-		    solution[counter]=temp3.getValueX();
-		    solution[counter+1]= temp3.getValueY();
-		    counter+=2;
-		    
-		}
-		return true;
-	    }
-	    if(maze[temp.getValueX()-1][temp.getValueY()]=='E'){
-		MyStack<Node> ans = new MyStack<Node>();
-		Node temp2 = new Node(temp.getValueX()-1,temp.getValueY(),temp);
-	        Node current = temp2;
-		while(current.hasPrev()){
-		    ans.push(current);
-		    current = current.getPrev();
-		}
-		solution = new int[ans.size() * 2];
-		int counter = 0;
-		while(ans.isEmpty()!=true){
-		    Node temp3 = ans.pop();
-		    solution[counter]=temp3.getValueX();
-		    solution[counter+1]= temp3.getValueY();
-		    counter+=2;
-		    
-		}
-		return true;
+	    if(animate){
+		System.out.println(this);
+		wait(20);
 	    }
 	}
-
 	return false;
     }    
     
-   /**mutator for the animate variable  **/
+    /**mutator for the animate variable  **/
     public void setAnimate(boolean b){
 	animate = b;
 	/** IMPLEMENT THIS **/ }    
@@ -248,13 +205,6 @@ public class BetterMaze{
 	catch (InterruptedException e) {
 	}
     }
-    public String toStringS(){
-	String ans = "[";
-	for(int i = 0; i < solution.length; i++){
-	    ans+=solution[i]+", ";
-	}
-	return ans+="]";
-    }
 
     public String toString(){
 	int maxr = maze.length;
@@ -280,12 +230,5 @@ public class BetterMaze{
 	}else{
 	    return ans + color(37,40) + "\n";
 	}
-    } 
-    
-
-
-       
-    
-    
-
+    }
 }

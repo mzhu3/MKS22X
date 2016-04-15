@@ -12,6 +12,23 @@ public class FrontierStack<T> implements Frontier<T>{
 	return myStack.pop();
     }
     public boolean hasNext(){
-	return myStack.empty();
+	try{
+	    return myStack.peek()!=null;
+	}
+	catch(EmptyStackException e){
+	    return false;
+	}
+
+    }
+    public static void main(String[]args){
+	FrontierStack<String> stack = new FrontierStack<String>();
+	stack.add("hi");
+	stack.add("bye");
+	System.out.println(stack.hasNext());
+	System.out.println(stack.next());
+	System.out.println(stack.next());
+	System.out.println(stack.hasNext());
     }
 }
+			  
+		  
