@@ -20,12 +20,20 @@ public class MyHeap<T extends Comparable<T>>{
 	    throw new Exception("No Children");
 	}
 	while(k < size / 2){
-	if(data[k].compareTo(data[(k*2]) < 0){
+	    if(data[k].compareTo(data[(k*2])) < 0){
 		swap(data,k,k*2);
 		k = k/2;
+		pushDown(k);
 	    }
-	        
-    }
+	    else if(data.[k].compareTo(data[(K*2)+1])<0){
+		swap(data,k,k*2 + 1);
+		k = k/2;
+		pushDown(k);
+	    }
+	    else{
+		
+	    
+	       
     private void pushUp(int k){}
     private void heapify(){}
     public T delete(){}
