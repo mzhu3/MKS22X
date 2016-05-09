@@ -44,38 +44,39 @@ public class MyHeap<T extends Comparable<T>>{
 	items[a] = items[b];
 	items[b] = temp;
     }
+    private boolean hasLeft(int k){
+	return data[k * 2] != null;
+    }
+    private boolean hasRight(int k ){
+	return data[k * 2 + 1] != null;
+    }
     private void pushDown(int k){
 	T value = data[k];
-	int biggerValueIndex = 0;
-	int left = k * 2;
-	int right = k * 2 + 1;
-	if(getMax()){
-	    biggerValueIndex = right;
-	    if(right < size &&data[right].compareTo(data[left])>0){
-		biggerValueIndex = right;
-	    }
-	    else{
-		biggerValueIndex = left;
-	    }
-	    if(data[k].compareTo(data[biggerValueIndex])<0){
-		swap(data,k,biggerValueIndex);
-		pushDown(biggerValueIndex);
-	    }
-	}
+	    int left = k * 2;
+	    int right = k * 2 + 1;
+	    int biggerValueIndex = left;
+	    if( k < size / 2){
+		if(getMax()){
+	    
+		    if(right < size && data[right].compareTo(data[left])>0){
+			biggerValueIndex = right;
+		    }
+		    if(data[k].compareTo(data[biggerValueIndex])<0){
+			swap(data,k,biggerValueIndex);
+			pushDown(biggerValueIndex);
+		    }
+		}
     
-	else{
-	    biggerValueIndex = left;
-	    if(right < size &&data[right].compareTo(data[left])<0){
-		biggerValueIndex = right;
+		else{
+		    if(right < size &&data[right].compareTo(data[left])<0){
+			biggerValueIndex = right;
+		    }
+		    if(data[k].compareTo(data[biggerValueIndex])>0){
+			swap(data,biggerValueIndex,k);
+			pushDown(biggerValueIndex);
+		    }
+		}
 	    }
-	    else{
-		biggerValueIndex = left;
-	    }
-	    if(data[k].compareTo(data[biggerValueIndex])>0){
-		swap(data,biggerValueIndex,k);
-		pushDown(biggerValueIndex);
-	    }
-	}
     }
     private void pushUp(int k){
 	if(k != 1){
@@ -94,8 +95,8 @@ public class MyHeap<T extends Comparable<T>>{
 	}
     }
     private void heapify(){
-	for(int i = size; i > 0; i --){
-	    pushUp(i);
+	for(int i = size / 2;i > 0 ;i--){
+	    pushDown(i);
 	}
     }
 		      
