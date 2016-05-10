@@ -3,13 +3,13 @@ import java.util.*;
 public class MyHeap<T extends Comparable<T>>{
     private int size;
     private T[] data;
-    private boolean isMax;
+    private boolean isThisMax;
 
     public MyHeap(){
 	size = 0;
         data = (T[])new Comparable[3];
 	data[0] = null;
-	isMax = true;
+	isThisMax = true;
 	
     }
     public MyHeap(T[] array){
@@ -19,14 +19,14 @@ public class MyHeap<T extends Comparable<T>>{
 	    data[i+1] = array[i];
 	}
 	size = array.length;
-	isMax = true;
+	isThisMax = true;
 	heapify();
     }
     public MyHeap(boolean isMax){
 	size = 0;
 	data = (T[]) new Comparable[6];
 	data[0] = null;
-	isMax = isMax;
+	isThisMax = isMax;
     }
     public MyHeap(T[] array, boolean isMax){
 	data = (T[])new Comparable[array.length + 1];
@@ -35,8 +35,9 @@ public class MyHeap<T extends Comparable<T>>{
 	    data[i+1] = array[i];
 	}
 	size = array.length;
+	isThisMax = isMax;
 	heapify();
-	isMax = isMax;
+
     
     }
     private void swap(T[] items, int a, int b){
@@ -56,7 +57,7 @@ public class MyHeap<T extends Comparable<T>>{
 	int right = k * 2 + 1;
 	int biggerValueIndex = left;
 	if( biggerValueIndex < size){
-	    if(getMax()){
+	    if(getThisMax()){
 		if(right > size){
 		    if(value.compareTo(data[biggerValueIndex])<0){
 			swap(data,k,biggerValueIndex);
@@ -96,7 +97,7 @@ public class MyHeap<T extends Comparable<T>>{
 	
     private void pushUp(int k){
 	if(k > 1){
-	    if(getMax()){
+	    if(getThisMax()){
 		if(data[k].compareTo(data[k/2])>0){
 		    swap(data,k,k/2);
 		    pushUp(k/2);
@@ -157,8 +158,8 @@ public class MyHeap<T extends Comparable<T>>{
 	}
 	return ans;
     }
-    public boolean getMax(){
-	return isMax;
+    public boolean getThisMax(){
+	return isThisMax;
     }
     public static void main(String[] args){
 	Integer[] obj = new Integer[] {10,100,12,122};
