@@ -68,7 +68,7 @@ public class MyHeap<T extends Comparable<T>>{
 		    if(data[right].compareTo(data[left])>0){
 			biggerValueIndex = right;
 		    }
-		    if(value.compareTo(data[biggerValueIndex])<0){
+		    if(value.compareTo(data[biggerValueIndex])<=0){
 			swap(data,k,biggerValueIndex);
 			pushDown(biggerValueIndex);
 		    }
@@ -86,7 +86,7 @@ public class MyHeap<T extends Comparable<T>>{
 		    if(data[right].compareTo(data[left])<0){
 			biggerValueIndex = right;
 		    }
-		    if(value.compareTo(data[biggerValueIndex])>0){
+		    if(value.compareTo(data[biggerValueIndex])>=0){
 			swap(data,k,biggerValueIndex);
 			pushDown(biggerValueIndex);
 		    }
@@ -98,13 +98,13 @@ public class MyHeap<T extends Comparable<T>>{
     private void pushUp(int k){
 	if(k > 1){
 	    if(getThisMax()){
-		if(data[k].compareTo(data[k/2])>0){
+		if(data[k].compareTo(data[k/2])>=0){
 		    swap(data,k,k/2);
 		    pushUp(k/2);
 		}
 	    }
 	    else{
-		if(data[k].compareTo(data[k/2])<0){
+		if(data[k].compareTo(data[k/2])<=0){
 		    swap(data,k,k/2);
 		    pushUp(k/2);
 		}
@@ -125,6 +125,9 @@ public class MyHeap<T extends Comparable<T>>{
 	return data[1];
     }
     public T delete(){
+	if(size ==0){
+	    throw new NoSuchElementException();
+	}
 	T temp = data[1];
 	data[1] = data[size];
 	size --;
@@ -183,6 +186,7 @@ public class MyHeap<T extends Comparable<T>>{
 	h3.add(100);
 	h3.add(12);
 	h3.add(122);
+	h3.add(10);
 	System.out.println(h2);
 	System.out.println(h3);
 	h2.delete();
