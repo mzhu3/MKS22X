@@ -115,6 +115,7 @@ public class MyHeap<T extends Comparable<T>>{
 	    pushUp(i);
 	    //System.out.println(this);
 	}
+	add(delete());
     }
     public T peek(){
 	if(size ==0){
