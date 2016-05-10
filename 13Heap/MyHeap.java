@@ -50,36 +50,52 @@ public class MyHeap<T extends Comparable<T>>{
     private boolean hasRight(int k ){
 	return data[k * 2 + 1] != null;
     }
-    private void pushDown(int k){
+   private void pushDown(int k){
 	T value = data[k];
-	    int left = k * 2;
-	    int right = k * 2 + 1;
-	    int biggerValueIndex = left;
-	    if( k < size / 2){
-		if(getMax()){
-	    
-		    if(right < size && data[right].compareTo(data[left])>0){
-			biggerValueIndex = right;
-		    }
-		    if(data[k].compareTo(data[biggerValueIndex])<0){
+	int left = k * 2;
+	int right = k * 2 + 1;
+	int biggerValueIndex = left;
+	if( biggerValueIndex < size){
+	    if(getMax()){
+		if(right > size){
+		    if(value.compareTo(data[biggerValueIndex])<0){
 			swap(data,k,biggerValueIndex);
 			pushDown(biggerValueIndex);
 		    }
 		}
-    
 		else{
-		    if(right < size &&data[right].compareTo(data[left])<0){
+		    if(data[right].compareTo(data[left])>0){
 			biggerValueIndex = right;
 		    }
-		    if(data[k].compareTo(data[biggerValueIndex])>0){
-			swap(data,biggerValueIndex,k);
+		    if(value.compareTo(data[biggerValueIndex])<0){
+			swap(data,k,biggerValueIndex);
 			pushDown(biggerValueIndex);
 		    }
 		}
 	    }
+	
+	    else{
+		if(right > size){
+		    if(value.compareTo(data[left])>0){
+			swap(data,k,left);
+			pushDown(left);
+		    }
+		}
+		else{
+		    if(data[right].compareTo(data[left])<0){
+			biggerValueIndex = right;
+		    }
+		    if(value.compareTo(data[biggerValueIndex])>0){
+			swap(data,k,biggerValueIndex);
+			pushDown(biggerValueIndex);
+		    }
+		}
+	    }
+	}
     }
+	
     private void pushUp(int k){
-	if(k != 1){
+	if(k > 1){
 	    if(getMax()){
 		if(data[k].compareTo(data[k/2])>0){
 		    swap(data,k,k/2);
@@ -95,18 +111,22 @@ public class MyHeap<T extends Comparable<T>>{
 	}
     }
     private void heapify(){
-	for(int i = size / 2;i > 0 ;i--){
-	    pushDown(i);
+	for(int i = size;i >size/2 ;i--){
+	    pushUp(i);
+	    //System.out.println(this);
 	}
     }
-		      
+    public T peek(){
+	if(size ==0){
+	    throw new NoSuchElementException();
+	}
+	return data[1];
+    }
     public T delete(){
 	T temp = data[1];
 	data[1] = data[size];
 	size --;
-	if(size > 1){
-	    pushDown(1);
-	}
+	pushDown(1);
 	return temp;
     }
     public void add(T x) {
@@ -114,14 +134,10 @@ public class MyHeap<T extends Comparable<T>>{
 	    doubleSize();
 	}
 	size++;
-	if(size == 1){
-	    data[size] = x;
-	}
-	else{
-	    data[size] = x;
-	    pushUp(size);
-	}
+	data[size] = x;
+	pushUp(size);
     }
+
 
        
     private void doubleSize(){
@@ -154,11 +170,11 @@ public class MyHeap<T extends Comparable<T>>{
 	h1.add(122);
 	System.out.println(h);
 	System.out.println(h1);
-	h.delete();
-	h1.delete();
+		System.out.println(	h.delete());
+		System.out.println(h1.delete());
 	System.out.println(h);
 	System.out.println(h1);
-	MyHeap<Integer> h2 = new MyHeap<Integer>(obj,false);
+		MyHeap<Integer> h2 = new MyHeap<Integer>(obj,false);
 	MyHeap<Integer> h3 = new MyHeap<Integer>(false);
 	//	System.out.println(h1.getMax());
 	h3.add(10);
